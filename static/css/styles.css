@@ -1,0 +1,18 @@
+.mainheading{
+    font-family: Georgia, 'Times New Roman', Times, serif ;
+    text-align: center;
+    margin-top: 13px;;
+}
+
+.semesterheading{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: large;
+    margin: 10px;
+    font-weight: 700;
+}
+
+table{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: medium;
+    margin: 5px;
+}
