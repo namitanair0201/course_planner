@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    <title>Course Planner</title>
+</head>
+
+<body>
+    <h1 class = "mainheading">COURSE PLANNER</h1>
+    <h2 class = "semesterheading">Semester prototype</h2>
+    <div class = "table-responsive">
+    
+        <table class="table table-hover">
+        
+            <thead>
+                <tr>
+                <th scope="col">Course number</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Credits</th>
+                <th scope="col">Category</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <form method="POST">
+
+                    {% for course_taken in courses_taken %}
+                    <tr>
+                        <td>{{course_taken['c_number']}}</td>
+                        <td>{{course_taken['c_name']}}</td>
+                        <td>{{course_taken['c_credits']}}</td>
+                        <td>{{course_taken['c_category']}}</td>
+                        <td><input type="submit" name="remove" value="Remove {{course_taken['c_number']}}"></td>
+                    </tr>
+                    {% endfor %}
+                </form>
+                <form method="POST">
+
+                    <tr>
+                        <td> <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="Enter course number"> </td>
+                        <td> <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="Enter course name"> </td>
+                        
+                        <datalist id="c_number">
+                            {% for course_number in course_numbers%}
+                                <option value= {{course_number}}>
+                            {% endfor %}
+                        </datalist>
+
+                        <datalist id="c_name">
+                            {% for course_name in course_names%}
+                                <option value= "{{course_name}}">
+                            {% endfor %}
+                        </datalist>
+                        
+                        <td><input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits"></td>
+                        <td><input type="text" name="c_category" autocomplete="off" placeholder="Enter category"></td>
+                        <td><input type="submit" name="btn" value="Add"></td>
+                    </tr>
+                </form>
+                
+            </tbody>
+        </table>
+    </div>
+
+        {% if error %}
+        <div class="alert alert-warning" role="alert">{{error}}</div>
+        {% endif %}
+        <form method= "POST" >
+            <td> <input type="submit" name="btn" value="Save / Export"> </td>
+        </form>
+
+<!-- bootstrap script tags-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</body>
+</html>
