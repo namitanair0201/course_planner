@@ -14,68 +14,97 @@
 
 <body>
     <h1 class = "mainheading">COURSE PLANNER for {{student_info['name']}}</h1>
-    <h2 class = "semesterheading">Semester prototype</h2>
-    <div class = "table-responsive">
-    
-        <table class="table table-hover">
+    <!--h2 class = "semesterheading">Semester prototype</!--h2-->
+    {% if message %}
+        <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endif %}
+    {% if removed %}
+        <div class="alert alert-warning" role="alert">{{removed}}</div>
+    {% endif %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+    {% endif %}
+
+    {% for each_year in student_info['years'] %}
+
+        <form method="POST">
+
+            <h2>{{each_year}}</h2> 
         
-            <thead>
-                <tr>
-                <th scope="col">Course number</th>
-                <th scope="col">Course name</th>
-                <th scope="col">Credits</th>
-                <th scope="col">Category</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                <form method="POST">
+            <input type="submit" name="remove_year" value="Remove {{each_year}}">
 
-                    {% for course_taken in courses_taken %}
-                    <tr>
-                        <td>{{course_taken['c_number']}}</td>
-                        <td>{{course_taken['c_name']}}</td>
-                        <td>{{course_taken['c_credits']}}</td>
-                        <td>{{course_taken['c_category']}}</td>
-                        <td><input type="submit" name="remove" value="Remove {{course_taken['c_number']}}"></td>
-                    </tr>
-                    {% endfor %}
-                </form>
-                <form method="POST">
-
-                    <tr>
-                        <td> <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="Enter course number"> </td>
-                        <td> <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="Enter course name"> </td>
-                        
-                        <datalist id="c_number">
-                            {% for course_number in course_numbers%}
-                                <option value= {{course_number}}>
-                            {% endfor %}
-                        </datalist>
-
-                        <datalist id="c_name">
-                            {% for course_name in course_names%}
-                                <option value= "{{course_name}}">
-                            {% endfor %}
-                        </datalist>
-                        
-                        <td><input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits"></td>
-                        <td><input type="text" name="c_category" autocomplete="off" placeholder="Enter category"></td>
-                        <td><input type="submit" name="btn" value="Add"></td>
-                    </tr>
-                </form>
-                
-            </tbody>
-        </table>
-    </div>
-
-        {% if error %}
-        <div class="alert alert-warning" role="alert">{{error}}</div>
-        {% endif %}
-        <form method= "POST" >
-            <td> <input type="submit" name="btn" value="Save / Export"> </td>
         </form>
+        <div class="row">
+
+        {% for each_sem in range(3) %}
+            {% if each_sem == 0 %}
+                <h2>Fall</h2>
+                {% set term = 'fall' %}
+            {% elif each_sem == 1 %}   
+                <h2>Spring</h2>
+                {% set term = 'spring' %}
+            {% else %} 
+                <h2>Summer</h2>
+                {% set term = 'summer' %}
+            {% endif %}
+            <div class = "table-responsive col-sm-4">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Course number</th>
+                        <th scope="col">Course name</th>
+                        <th scope="col">Credits</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form method="POST">
+
+                            {% for course_taken in student_info[each_year][term] %}
+                            <tr>
+                                <td>{{course_taken['c_number']}}</td>
+                                <td>{{course_taken['c_name']}}</td>
+                                <td>{{course_taken['c_credits']}}</td>
+                                <td>{{course_taken['c_category']}}</td>
+                                <td><input type="submit" name="remove" value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"></td>
+                            </tr>
+                            {% endfor %}
+                        </form>
+                        <form method="POST">
+
+                            <tr>
+                                <td> <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="Enter course number"> </td>
+                                <td> <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="Enter course name"> </td>
+                                
+                                <datalist id="c_number">
+                                    {% for course_number in course_numbers%}
+                                        <option value= {{course_number}}>
+                                    {% endfor %}
+                                </datalist>
+
+                                <datalist id="c_name">
+                                    {% for course_name in course_names%}
+                                        <option value= "{{course_name}}">
+                                    {% endfor %}
+                                </datalist>
+                                
+                                <td><input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits"></td>
+                                <td><input type="text" name="c_category" autocomplete="off" placeholder="Enter category"></td>
+                                <td><input type="submit" name="btn" value="Add to {{term}} in {{each_year}}"></td>
+                            </tr>
+                        </form>
+                        
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+    <form method= "POST" >
+        <input type="text" name="new_year" autocomplete="off" placeholder="Enter year">
+        <input type="submit" name="year" value="Add a year">
+    </form>
 
 <!-- bootstrap script tags-->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

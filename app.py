@@ -9,32 +9,49 @@ course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/cou
 
 @app.route('/<int:usc_id>', methods=['GET','POST'])
 def Hello_world(usc_id):
-    error,save_msg = '',''
-
+    error,message,removed = '','',''
     form_submitted = request.form
-    courses_taken = []
 
     student_info = read_student_info('static/assets/students/'+str(usc_id)+'.csv',check_dict)
 
-    if 'btn' in form_submitted and form_submitted['btn'] == 'Add':
+    if 'btn' in form_submitted and form_submitted['btn'].startswith('Add'):
+        text = form_submitted['btn'].split()
+        term = text[2]
+        year = text[4]
         if (('c_number' in form_submitted) and (form_submitted['c_number'] in check_dict)):
-            courses_taken.append(check_dict[form_submitted['c_number']])
+            student_info[year][term].append(check_dict[form_submitted['c_number']])
+            message = 'Successfully added '+str(form_submitted['c_number'])
         elif 'c_name' in form_submitted and form_submitted['c_name'] in check_dict:
-            courses_taken.append(check_dict[form_submitted['c_name']])
+            student_info[year][term].append(check_dict[form_submitted['c_name']])
+            message = 'Successfully added '+str(form_submitted['c_number'])
         else:
             error = 'Course name/number does not exist in DB'
+    elif 'remove_year' in form_submitted:
+        year = form_submitted['remove_year'].split()[-1]
+        student_info['years'].remove(year)
+        student_info.pop(year)
+        message = 'Successfully removed '+year
+
     elif 'remove' in form_submitted:
-        for course_taken in courses_taken:
-            if course_taken['c_number'] == form_submitted['remove'][7:]:
-                courses_taken.remove(course_taken)
-
-    elif 'btn' in form_submitted and form_submitted['btn'] == 'Save / Export':
-        if save_student_info('static/assets/students/123.csv', student_info):
-            save_msg = 'Saved!'
+        text = form_submitted['remove'].split()
+        term = text[3]
+        year = text[5]
+        c_number = text[1]
+        for course_taken in student_info[year][term]:
+            if course_taken['c_number'] == c_number:
+                student_info[year][term].remove(course_taken)
+        removed = 'Successfully removed '+str(c_number)
+    elif 'year' in form_submitted:
+        new_year = form_submitted['new_year']
+        if new_year not in student_info['years']:
+            student_info['years'].append(new_year)
+            student_info[new_year]={'fall':[],'spring':[],'summer':[]}
+            message = 'Successfully added '+new_year
         else:
-            error = 'Error in saving'
+            error = 'Selected year already exists'
 
-    return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, save_msg=save_msg, error=error)
+    save_student_info('static/assets/students/123.csv', student_info)
+    return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
