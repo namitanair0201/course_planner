@@ -1,18 +1,20 @@
 from flask import Flask, render_template, request
-from helpers.readcsv import read_from_csv
+from helpers.readcsv import read_from_csv, read_student_info, save_student_info
 app = Flask(__name__)
 
 #DOUBT1: WHY ARE WE STORING STUFF LIKE A DICTIONARY INSIDE A TABLE?
 #GET Flask name
 
-courses_taken = []
-
 course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
-@app.route('/', methods=['GET','POST'])
-def Hello_world():
+
+@app.route('/<int:usc_id>', methods=['GET','POST'])
+def Hello_world(usc_id):
     error,save_msg = '',''
 
     form_submitted = request.form
+    courses_taken = []
+
+    student_info = read_student_info('static/assets/students/'+str(usc_id)+'.csv',check_dict)
 
     if 'btn' in form_submitted and form_submitted['btn'] == 'Add':
         if (('c_number' in form_submitted) and (form_submitted['c_number'] in check_dict)):
@@ -27,9 +29,12 @@ def Hello_world():
                 courses_taken.remove(course_taken)
 
     elif 'btn' in form_submitted and form_submitted['btn'] == 'Save / Export':
-        save_msg = courses_taken
+        if save_student_info('static/assets/students/123.csv', student_info):
+            save_msg = 'Saved!'
+        else:
+            error = 'Error in saving'
 
-    return render_template('index.html', courses_taken=courses_taken, course_names=course_names, course_numbers=course_numbers, save_msg=save_msg, error=error)
+    return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, save_msg=save_msg, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
