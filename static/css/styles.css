@@ -16,3 +16,21 @@ table{
     font-size: medium;
     margin: 5px;
 }
+
+.sem, .year{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: medium;
+    margin: 5px;
+    text-align: center;
+    color: brown;
+}
+
+h2{
+    text-align: center;
+    padding: 5%;
+}
+
+caption{
+    caption-side: top;
+    vertical-align: top;
+}
