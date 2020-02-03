@@ -21,24 +21,32 @@ def read_student_info(file_name, check_dict):
         csv_reader = csv.reader(csvfile, delimiter=',')
         csv_reader = list(csv_reader)
         _,result['name'] = csv_reader[0]
-        _,result['usc_id'] = csv_reader[1]
-        _,result['program'] = csv_reader[2]
-        result['years'] = csv_reader[3][1:]
-        for each_year in range(4,4*(len(result['years'])+1),4):
+        _,result['image_link'] = csv_reader[1]
+        _,result['usc_id'] = csv_reader[2]
+        _,result['program'] = csv_reader[3]
+        print(csv_reader[4])
+        result['years'] = csv_reader[4][1:]
+        
+        if result['years']==['']:
+            result['years'] = None
+            number_of_years = 0
+        else:
+            number_of_years = len(result['years'])
+        for each_year in range(5,4*(number_of_years+1),4):
             result[csv_reader[each_year][0]]={'fall':[check_dict[x] for x in csv_reader[each_year+1][1:]],'spring':[check_dict[x] for x in csv_reader[each_year+2][1:]],'summer':[check_dict[x] for x in csv_reader[each_year+3][1:]]}
+
         return result
 
 def save_student_info(file_name, student_info):
     s_vals = student_info
-    print( "YAHA pe", s_vals)
     text_to_save = "name,"+s_vals['name']+"\n"
+    text_to_save += "image_link,"+s_vals['image_link']+"\n"
     text_to_save += "usc_id,"+s_vals['usc_id']+"\n"
     text_to_save += "program,"+s_vals['program']+"\n"
     text_to_save += "years,"+",".join(s_vals['years']) + "\n"
     
     print(text_to_save)
     n = len(s_vals['years'])
-    
     for i in range(n):
         text_to_save += s_vals["years"][i]+ '\n'
         
