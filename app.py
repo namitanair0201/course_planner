@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from helpers.readcsv import read_from_csv, read_student_info, save_student_info
 app = Flask(__name__)
 
+student_data_path = './static/assets/students/'
+
 course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
 
 @app.route('/<int:usc_id>', methods=['GET','POST'])
@@ -9,10 +11,10 @@ def Hello_world(usc_id):
     error,message,removed = '','',''
     form_submitted = request.form
 
-    student_info = read_student_info('static/assets/students/'+str(usc_id)+'.csv',check_dict)
+    student_info = read_student_info(student_data_path+str(usc_id)+'.csv',check_dict)
 
-    if 'btn' in form_submitted and form_submitted['btn'].startswith('Add'):
-        text = form_submitted['btn'].split()
+    if 'add_course' in form_submitted:
+        text = form_submitted['add_course'].split()
         term = text[2]
         year = text[4]
         if (('c_number' in form_submitted) and (form_submitted['c_number'] in check_dict)):
@@ -47,7 +49,7 @@ def Hello_world(usc_id):
         else:
             error = 'Selected year already exists'
 
-    save_student_info('static/assets/students/123.csv', student_info)
+    save_student_info(student_data_path+str(usc_id)+'.csv', student_info)
     return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
 if __name__ == '__main__':

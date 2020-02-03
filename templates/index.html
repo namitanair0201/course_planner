@@ -35,7 +35,7 @@
     <form class = "form-inline" method="POST">
 
         <h3 class = "year" >Year {{each_year}}</h3> 
-        <button class = "btn btn-primary px-2" type="submit" name="remove_year" > Remove  {{each_year}} </button>
+        <button class = "btn btn-primary px-2" type="submit" name="remove_year" value=" Remove  {{each_year}} "> Remove  {{each_year}} </button>
     </form>
 
     {% for each_sem in range(3) %}
@@ -69,7 +69,7 @@
                 <td>{{course_taken['c_name']}}</td>
                 <td>{{course_taken['c_credits']}}</td>
                 <td>{{course_taken['c_category']}}</td>
-                <td><button class = "btn btn-danger"type="submit" name="remove">Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}</button></td>
+                <td><button class = "btn btn-danger"type="submit" name="remove" value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}">Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}</button></td>
             </tr>
             {% endfor %}
         </form>
@@ -95,7 +95,7 @@
                     <td><input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits"></td>
                     <td><input type="text" name="c_category" autocomplete="off" placeholder="Enter category"></td>
                     <td>
-                        <button class = "btn btn-success" type="submit" name="btn">Add to {{term}} in {{each_year}}</button>
+                        <button class = "btn btn-success" type="submit" name="add_course" value="Add to {{term}} in {{each_year}}">Add to {{term}} in {{each_year}}</button>
                     </td>
                 </form>     
             </tr>
