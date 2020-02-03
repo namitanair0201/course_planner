@@ -48,7 +48,8 @@ def Hello_world(usc_id):
             message = 'Successfully added '+new_year
         else:
             error = 'Selected year already exists'
-
+    
+    student_info['years'].sort()
     save_student_info(student_data_path+str(usc_id)+'.csv', student_info)
     return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
