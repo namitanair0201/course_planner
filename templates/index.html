@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,132 +12,110 @@
     <title>Course Planner</title>
 </head>
 
+<body class = "container-fluid">
+<!--problems:
+1. inserting in a new course refreshes the whole page and redirects to the top of the page
+2. if there is no course and i click on the add course button, i do not get an error message
+-->
+     <div>
+        <h1 class = "mainheading"> Course Planner for {{student_info['name']}} </h1>
+        <hr> <br>
+        {% if message %}
+            <div class="alert alert-success" role="alert">{{message}}</div>
+        {% endif %}
+        {% if removed %}
+            <div class="alert alert-warning" role="alert">{{removed}}</div>
+        {% endif %}
+        {% if error %}
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+        {% endif %}
+    </div>
 
-<body>
+    {% for each_year in student_info['years'] %}
+    <form class = "form-inline" method="POST">
 
-    <!-- main heading COURSE PLANNER FOR STUDENT-->
-    <h1 class = "mainheading">Course Planner for {{student_info['name']}}</h1>
-    {% if message %}
-        <div class="alert alert-success" role="alert">{{message}}</div>
-    {% endif %}
-    
-    {% if removed %}
-        <div class="alert alert-warning" role="alert">{{removed}}</div>
-    {% endif %}
-    
-    {% if error %}
-        <div class="alert alert-danger" role="alert">{{error}}</div>
-    {% endif %}
+        <h3 class = "year" >Year {{each_year}}</h3> 
+        <button class = "btn btn-primary px-2" type="submit" name="remove_year" > Remove  {{each_year}} </button>
+    </form>
 
-    <!-- displaying year "YEAR 20xx" -->  
+    {% for each_sem in range(3) %}
+        {% if each_sem == 0 %}
+            <h4 class = "sem">Fall</h4>
+            {% set term = 'fall' %}
+        {% elif each_sem == 1 %}   
+            <h4 class = "sem">Spring</h4>
+            {% set term = 'spring' %}
+        {% else %} 
+            <h4 class = "sem">Summer</h4>
+            {% set term = 'summer' %}
+        {% endif %}
     
-    
-{% for each_year in student_info['years'] %}
-    
-    <div class="row">
-            <form method="POST">
-                <h2>YEAR {{each_year}}</h2> 
-                <input type="submit" name="remove_year" value="Remove {{each_year}}">
-            </form>
-    </div>>
-    
-    <div class = "row">
-        
-        {% for each_sem in range(3) %}
-        <!-- start thinking about aligning the tables-->
-        <table class="table table-hover table-responsive col-md-4">
-            <caption>
-                    {% if each_sem == 0 %}
-                        <h2 class = "sem">Fall</h2>
-                        {% set term = 'fall' %}
-                    {% elif each_sem == 1 %}   
-                        <h2 class = "sem">Spring</h2 class = "sem">
-                        {% set term = 'spring' %}
-                    {% else %} 
-                        <h2 class = "sem">Summer</h2 class = "sem">
-                        {% set term = 'summer' %}
-                    {% endif %}    
-            </caption>
-            
-            <thead>
-                <tr>
+    <table class = "table table-sm table-hover table-bordered">
+        <thead class = "thead-light">
+            <tr>
                 <th scope="col">Course number</th>
                 <th scope="col">Course name</th>
                 <th scope="col">Credits</th>
                 <th scope="col">Category</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            
-            <tbody>
-                
-                <!-- displaying the courses already taken -->
-                <form method="POST">
-                    {% for course_taken in student_info[each_year][term] %}
-                    <tr>
-                        <td>{{course_taken['c_number']}}</td>
-                        <td>{{course_taken['c_name']}}</td>
-                        <td>{{course_taken['c_credits']}}</td>
-                        <td>{{course_taken['c_category']}}</td>
-                        <td><input type="submit" name="remove" value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"></td>
-                    </tr>
-                    {% endfor %}
-                </form>
-                
-                <form method="POST">
+                <th scope="col">Action</th></th>
+            </tr>
+        </thead>
+        <tbody>
+        <form method="POST">
 
-                    <tr>
-                        
-                        <td> 
-                            <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="Enter course number"> 
+            {% for course_taken in student_info[each_year][term] %}
+            <tr>
+                <td>{{course_taken['c_number']}}</td>
+                <td>{{course_taken['c_name']}}</td>
+                <td>{{course_taken['c_credits']}}</td>
+                <td>{{course_taken['c_category']}}</td>
+                <td><button class = "btn btn-danger"type="submit" name="remove">Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}</button></td>
+            </tr>
+            {% endfor %}
+        </form>
+        
+            <tr scope = "row">
+                <form method="POST">
+                    <td> 
+                        <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="Enter course number"> 
                             <datalist id="c_number">
                                 {% for course_number in course_numbers%}
                                     <option value= {{course_number}}>
                                 {% endfor %}
                             </datalist>    
-                        </td>
-                        
-                        <td>
-                            <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="Enter course name">
+                    </td>
+                    <td>
+                        <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="Enter course name">
                             <datalist id="c_name">
                                 {% for course_name in course_names%}
                                     <option value= "{{course_name}}">
                                 {% endfor %}
                             </datalist>
-                        </td>
-                        
-                        <td>
-                            <input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits">
-                        </td>
-                        
-                        <td>
-                            <input type="text" name="c_category" autocomplete="off" placeholder="Enter category">
-                        </td>
+                    </td>                                
+                    <td><input type="text" name="c_credits" autocomplete="off" placeholder="Enter credits"></td>
+                    <td><input type="text" name="c_category" autocomplete="off" placeholder="Enter category"></td>
+                    <td>
+                        <button class = "btn btn-success" type="submit" name="btn">Add to {{term}} in {{each_year}}</button>
+                    </td>
+                </form>     
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+    {% endfor %}
 
-                        <td>
-                            <input type="submit" name="btn" value="Add to {{term}} in {{each_year}}">
-                        </td> 
-                    </tr>
-                </form>
 
-            </tbody>
-        </table>
-        {% endfor %}
-        <!--the above endfor is for each_sem for loop-->
-    </div>
-
-{ % endfor %}
-<!-- the above endfor is for each_year for loop-->
     <form method= "POST" >
         <input type="text" name="new_year" autocomplete="off" placeholder="Enter year">
         <input type="submit" name="year" value="Add a year">
     </form>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 </body>
+
+<!-- bootstrap script tags-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </html>
+
+    

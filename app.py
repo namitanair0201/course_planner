@@ -2,9 +2,6 @@ from flask import Flask, render_template, request
 from helpers.readcsv import read_from_csv, read_student_info, save_student_info
 app = Flask(__name__)
 
-#DOUBT1: WHY ARE WE STORING STUFF LIKE A DICTIONARY INSIDE A TABLE?
-#GET Flask name
-
 course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
 
 @app.route('/<int:usc_id>', methods=['GET','POST'])
@@ -20,10 +17,10 @@ def Hello_world(usc_id):
         year = text[4]
         if (('c_number' in form_submitted) and (form_submitted['c_number'] in check_dict)):
             student_info[year][term].append(check_dict[form_submitted['c_number']])
-            message = 'Successfully added '+str(form_submitted['c_number'])
+            message = 'Successfully added course '+str(form_submitted['c_number'])
         elif 'c_name' in form_submitted and form_submitted['c_name'] in check_dict:
             student_info[year][term].append(check_dict[form_submitted['c_name']])
-            message = 'Successfully added '+str(form_submitted['c_number'])
+            message = 'Successfully added course '+str(form_submitted['c_number'])
         else:
             error = 'Course name/number does not exist in DB'
     elif 'remove_year' in form_submitted:

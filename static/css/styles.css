@@ -1,36 +1,35 @@
-.mainheading{
-    font-family: Georgia, 'Times New Roman', Times, serif ;
+*{
+    font-family: Helvetica, Arial, sans-serif;
     text-align: center;
-    margin-top: 13px;;
 }
-
 .semesterheading{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: large;
+        font-size: large;
     margin: 10px;
     font-weight: 700;
 }
 
-table{
-    font-family: 'Times New Roman', Times, serif;
-    font-size: medium;
-    margin: 5px;
-}
-
-.sem, .year{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    margin: 5px;
-    text-align: center;
-    color: brown;
-}
 
 h2{
     text-align: center;
-    padding: 5%;
+    padding: 0%;
 }
 
 caption{
     caption-side: top;
     vertical-align: top;
+}
+
+.yearContainer{
+    border:solid;
+    border-width: 2px;
+    border-color: brown;
+}
+
+.thead{
+    background-color: cornflowerblue;
+}
+
+.sem{
+    color: blue;
+    font-weight: 550px;
 }
