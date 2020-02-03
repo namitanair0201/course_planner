@@ -12,7 +12,7 @@ def Hello_world(usc_id):
     form_submitted = request.form
 
     student_info = read_student_info(student_data_path+str(usc_id)+'.csv',check_dict)
-
+    student_info['years'].sort()
     if 'add_course' in form_submitted:
         text = form_submitted['add_course'].split()
         term = text[2]
