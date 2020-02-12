@@ -19,19 +19,24 @@ caption{
     vertical-align: top;
 }
 
-.yearContainer{
-    border:solid;
-    border-width: 2px;
-    border-color: brown;
-}
-
 table {
     table-layout: fixed;
     word-wrap: break-word;
+    padding: 2em;
+    margin: 0em;
 }
 
 .sem{
     width: 50%;
-    display: inline-block;
     color: brown;
+    height:20px;
+    margin: 2em;
+    padding: 2em;
+    display: inline-block;
+}
+
+.year{
+    display: inline-block;
+    float: left;
+    border: 2px solid green;
 }

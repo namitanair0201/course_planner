@@ -36,13 +36,12 @@
             <div class="alert alert-danger" role="alert">{{error}}</div>
         {% endif %}
     </div>
-
     {% if student_info['years'] %}
     {% for each_year in student_info['years'] %}
-    <form class = "form-inline" method="POST">
+    <form method="POST">
 
         <h3 class = "year" >Year {{each_year}}</h3> 
-        <button class = "btn btn-primary px-2" type="submit" name="remove_year" value=" Remove  {{each_year}} "> Remove  {{each_year}} </button>
+        <button class = "btn-sm btn-outline-secondary" type="submit" name="remove_year" value=" Remove  {{each_year}} "> Remove</button>
     </form>
 
     {% for each_sem in range(3) %}
@@ -56,16 +55,17 @@
             <h4 class = "sem">Summer</h4>
             {% set term = 'summer' %}
         {% endif %}
-    <table style = "width: 60%;"class = "table table-sm table-hover table-bordered">
+    <table style = "width: 50%;"class = "table table-sm table-hover table-bordered">
         <thead class = "thead-light">
             <tr>
                 <th style="width: 10%;">C_No</th>
-                <th style="width: 40%;">Course name</th>
+                <th style="width: 50%;">Course name</th>
                 <th style="width: 10%;">Credits</th>
-                <th style="width: 10%;">Category</th>
-                <th style="width: 30%;">Action</th></th>
+                <th style="width: 10%;">Cat</th>
+                <th style="width: 20%;">Action</th></th>
             </tr>
         </thead>
+
         <tbody>
         <form method="POST">
 
@@ -82,15 +82,15 @@
         
             <tr>
                 <form method="POST">
-                    <td style = "width: 10%"> 
-                        <input list="c_number" autocomplete="off" type="text" name="c_number" placeholder="select"> 
+                    <td> 
+                        <input style = "width: 100%;" list="c_number" autocomplete="off" type="text" name="c_number" placeholder="--"> 
                             <datalist id="c_number">
                                 {% for course_number in course_numbers%}
                                     <option value= {{course_number}}>
                                 {% endfor %}
                             </datalist>    
                     </td>
-                    <td style = "width:40%">
+                    <td >
                         <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="select">
                             <datalist id="c_name">
                                 {% for course_name in course_names%}
@@ -98,10 +98,10 @@
                                 {% endfor %}
                             </datalist>
                     </td>                                
-                    <td style = "width: 10%;"><input type="text" name="c_credits" autocomplete="off" placeholder="select"></td>
-                    <td style = "width: 10%;"><input type="text" name="c_category" autocomplete="off" placeholder="select"></td>
-                    <td style = "width: 30%;">
-                        <button class = "btn btn-success" type="submit" name="add_course" value="Add to {{term}} in {{each_year}}">Add</button>
+                    <td ><input  class = "form-control-plaintext" style = "width: 100%;"type="text" name="c_credits" autocomplete="off" placeholder="credits"></td>
+                    <td><input class = "form-control-plaintext" style = "width: 100%;" type="text" name="c_category" autocomplete="off" placeholder="category"></td>
+                    <td>
+                        <button style = "width: 90%;"class = "btn-sm btn-success" type="submit" name="add_course" value="Add to {{term}} in {{each_year}}">Add</button>
                     </td>
                 </form>     
             </tr>
@@ -110,11 +110,9 @@
     {% endfor %}
     {% endfor %}
     {% endif %}
-    </div>
-
     <form method= "POST" >
         <input type="text" name="new_year" autocomplete="off" placeholder="Enter year">
-        <input type="submit" name="year" value="Add a year">
+        <input class="btn btn-primary" type="submit" name="year" value="Add a year">
     </form>
 
 <!-- bootstrap script tags-->
