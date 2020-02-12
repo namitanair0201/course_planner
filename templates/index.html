@@ -38,7 +38,7 @@
     </div>
     {% if student_info['years'] %}
     {% for each_year in student_info['years'] %}
-    <form method="POST">
+    <form class = "form-inline" method="POST">
 
         <h3 class = "year" >Year {{each_year}}</h3> 
         <button class = "btn-sm btn-outline-secondary" type="submit" name="remove_year" value=" Remove  {{each_year}} "> Remove</button>
