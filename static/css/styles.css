@@ -30,3 +30,8 @@ table {
     word-wrap: break-word;
 }
 
+.sem{
+    width: 50%;
+    display: inline-block;
+    color: brown;
+}
