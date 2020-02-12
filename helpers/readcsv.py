@@ -24,7 +24,6 @@ def read_student_info(file_name, check_dict):
         _,result['image_link'] = csv_reader[1]
         _,result['usc_id'] = csv_reader[2]
         _,result['program'] = csv_reader[3]
-        print(csv_reader[4])
         result['years'] = csv_reader[4][1:]
         
         if result['years']==['']:
@@ -43,10 +42,13 @@ def save_student_info(file_name, student_info):
     text_to_save += "image_link,"+s_vals['image_link']+"\n"
     text_to_save += "usc_id,"+s_vals['usc_id']+"\n"
     text_to_save += "program,"+s_vals['program']+"\n"
-    text_to_save += "years,"+",".join(s_vals['years']) + "\n"
-    
-    print(text_to_save)
-    n = len(s_vals['years'])
+    if s_vals['years']:
+        text_to_save += "years,"+",".join(s_vals['years']) + "\n"
+        n = len(s_vals['years'])
+    else:
+        text_to_save += "years,"
+        n = 0
+    print('[YOOO]',n,s_vals['years'])
     for i in range(n):
         text_to_save += s_vals["years"][i]+ '\n'
         

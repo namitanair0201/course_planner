@@ -25,11 +25,8 @@ caption{
     border-color: brown;
 }
 
-.thead{
-    background-color: cornflowerblue;
+table {
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
-.sem{
-    color: blue;
-    font-weight: 550px;
-}

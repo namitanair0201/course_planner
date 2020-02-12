@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request
 from helpers.readcsv import read_from_csv, read_student_info, save_student_info
+import glob
 app = Flask(__name__)
 
 student_data_path = './static/assets/students/'
 
 course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
+
+
+@app.route('/', methods=['GET'])
+def Main():
+    students_paths = glob.glob(student_data_path+'*.csv')
+    students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
+    return render_template('main.html', students_info=students_info)
 
 @app.route('/<int:usc_id>', methods=['GET','POST'])
 def Hello_world(usc_id):
@@ -12,7 +20,8 @@ def Hello_world(usc_id):
     form_submitted = request.form
 
     student_info = read_student_info(student_data_path+str(usc_id)+'.csv',check_dict)
-    student_info['years'].sort()
+    if student_info['years']:
+        student_info['years'].sort()
     if 'add_course' in form_submitted:
         text = form_submitted['add_course'].split()
         term = text[2]
@@ -42,6 +51,9 @@ def Hello_world(usc_id):
         removed = 'Successfully removed '+str(c_number)
     elif 'year' in form_submitted:
         new_year = form_submitted['new_year']
+        
+        if not student_info['years']:
+            student_info['years'] = [new_year]
         if new_year not in student_info['years']:
             student_info['years'].append(new_year)
             student_info[new_year]={'fall':[],'spring':[],'summer':[]}
@@ -49,7 +61,8 @@ def Hello_world(usc_id):
         else:
             error = 'Selected year already exists'
     
-    student_info['years'].sort()
+    if student_info['years']:
+        student_info['years'].sort()
     save_student_info(student_data_path+str(usc_id)+'.csv', student_info)
     return render_template('index.html', student_info=student_info, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
