@@ -1,7 +1,8 @@
-*{
+* {
     font-family: Helvetica, Arial, sans-serif;
     text-align: center;
 }
+
 
 table {
     table-layout: fixed;
@@ -10,15 +11,55 @@ table {
     margin: 0em;
 }
 
-.sem{
-    color: brown;
-    text-align: center;
-    font: bold 22px Helvetica, sans-serif;    
+.thead {
+    margin: 5px;
+    background-color: #825F77;
+
 }
 
-div.box{
+.thead th {
+    font-size: 16px;
+    color: #F9FAFC;
+    font-family: Helvetica, sans-serif;
+}
+
+tbody tr {
+    background-color: #F9FAFC;
+    font-family: Helvetica, sans-serif;
+}
+
+.sem {
+    padding: 0px;
+    margin: 0px;
+    border-width: 0px;
+    text-align: center;
+    font: bold 22px Helvetica, sans-serif;
+    color: #1A535C;
+}
+
+button.remove {
+    color: #464646;
+    background-color: inherit;
+    border: 0px;
+    padding: 0;
+    font-size: 100%;
+}
+
+div.box {
     /* border: solid 1px black; */
     width: 50%;
     float: left;
     padding: 10px;
-    }
+}
+
+.yearHeading{
+    text-align: center;}
+
+.btnSuccess{
+    color: rgba(253, 145, 174, 1);;
+    background-color: inherit;
+    border: 0px;
+    padding: 0;
+    font-size: 100%;
+
+}
