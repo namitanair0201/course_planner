@@ -38,6 +38,7 @@
     </div>
     {% if student_info['years'] %}
     {% for each_year in student_info['years'] %}
+    <div class = "box">
     <form class = "form-inline" method="POST">
 
         <h3 class = "year" >Year {{each_year}}</h3> 
@@ -46,16 +47,16 @@
 
     {% for each_sem in range(3) %}
         {% if each_sem == 0 %}
-            <h4 class = "sem">Fall</h4>
+            <p class = "sem">Fall</p>
             {% set term = 'fall' %}
         {% elif each_sem == 1 %}   
-            <h4 class = "sem">Spring</h4>
+            <p class = "sem">Spring</p>
             {% set term = 'spring' %}
         {% else %} 
-            <h4 class = "sem">Summer</h4>
+            <p class = "sem">Summer</p>
             {% set term = 'summer' %}
         {% endif %}
-    <table style = "width: 50%;"class = "table table-sm table-hover table-bordered">
+    <table class = "table table-sm table-hover table-bordered">
         <thead class = "thead-light">
             <tr>
                 <th style="width: 10%;">C_No</th>
@@ -107,9 +108,11 @@
             </tr>
         </tbody>
     </table>
-    {% endfor %}
-    {% endfor %}
+    {% endfor %} <!--for each semester-->
+    </div>
+    {% endfor %} <!--for each year-->
     {% endif %}
+    
     <form method= "POST" >
         <input type="text" name="new_year" autocomplete="off" placeholder="Enter year">
         <input class="btn btn-primary" type="submit" name="year" value="Add a year">
