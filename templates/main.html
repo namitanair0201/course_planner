@@ -11,7 +11,13 @@
     
 </head>
 <body>
-    
+    <h1>All Students</h1>
+    {% if message %}
+        <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endif %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+    {% endif %}
     <table class = "table table-sm table-hover table-bordered">
         <thead class = "thead-light">
             <tr>
@@ -25,9 +31,32 @@
             <tr scope = "row">
                 <td><a href={{student_info['usc_id']}}>{{student_info['usc_id']}}</a></td>
                 <td>{{student_info['name']}}</td>
-                <td>{{student_info['program']}}</td>
+                <td>{{student_info['major']}}</td>
             </tr>
         {% endfor %}
+    </table>
+        <form class="form" method="POST">
+
+            <h5>Add new student:</h5>
+
+            <input type="text" name="name" placeholder="Enter Name" required>
+
+            <input type="text" name="image_link" placeholder="(Optional) Image link">
+
+            <input type="number" name="year_of_joining" placeholder="Enter Year Of Joining" required>
+
+            <input type="number" name="usc_id" placeholder="Enter USC ID" required>
+
+            <input list="major_names" autocomplete="off" type="text" name="major" placeholder="Select Major" required>
+                <datalist id="major_names">
+                    <option value="Brain Cognitive Sciences">
+                    <option value="Developmental Psychology">
+                    <option value="Social Psychology">
+                    <option value="Quantitative Psychology">
+                </datalist>
+
+            <button class="btnSuccess" type="submit" name="new_student">Submit</button>
+        </form>
 
 </body>
 <!-- bootstrap script tags-->

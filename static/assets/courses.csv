@@ -1,39 +1,55 @@
-c_number,c_name,c_category,c_credits
-500,An Overview of Quantitative Methods in Psychology,A,4
-501,Statistics in Psychological Research,A,4
-502,Analysis of Variance and Experimental Design,A,4
-503,Regression and the General Linear Model,A,4
-504,Research Design,A,4
-520,Fundamentals of Psychological Measurement,A,4
-524,Research Design in Developmental Psychology,A,4
-575,Multivariate Analysis of Behavioral Data,A,4
-577,Analysis of Covariance Structures,A,4
-578,Workshop in Quantitative Methods,A,4
-616,Research Techniques for Non-Experimental Social Sciences,A,4
-621,Seminar in Quantitative Psychology,A,4
-622,Decision Analysis and Behavioural Decision Theory,A,4
-625,Advanced Big Data Methods,A,4
-506,Learning and Cognition,B,4
-510,Visual Cognition,B,4
-540,Cognitive Neuroscience,B,4
-544,Psychophysiology,B,4
-545,Neuropsychology,B,4
-547,Functional Neuroanatomy,B,4
-551,Decision Neuroscience,B,4
-555,Introduction to Functional Magnetic Resonance Imaging,B,4
-576,Psycholinguistics,B,4
-586,Advanced Psycholinguistics,B,4
-676,Seminar in Psycholinguistics,B,4
-512,Seminar in Social Psychology,C,4
-514,Psychopathology,C,4
-515,Clinical Assessment,C,4
-533,Cognitive Development in Children,C,4
-538,Origins of Human Nature,C,4
-534,Social and Emotional Development in Children,C,4
-595,Practicum in clinical psychology,C,4
-612,Seminar in Advanced Social Psychology,C,4
-619,Psychological Intervention,C,4
-626,Computational Social Sciences,C,4
-660,Seminar in Clinical Psychology,C,4
-680,Seminar in Psychopathology,C,4
-695,Advanced Practicum in Clinical Psychology,C,4
+c_number,c_name,c_category,c_credits,subs,psych
+500,An Overview of Quantitative Methods in Psychology,A,4,1,1
+501,Statistics in Psychological Research,A,4,1,1
+502,Analysis of Variance and Experimental Design,A,4,1,1
+503,Regression and the General Linear Model,A,4,1,1
+504,Research Design,A,4,1,1
+506,Learning and Cognition,B,4,1,1
+510,Visual Cognition,B,4,1,1
+512,Seminar in Social Psychology,C,4,1,1
+514,Psychopathology,C,4,1,1
+515,Clinical Assessment,C,4,1,1
+520,Fundamentals of Psychological Measurement,A,4,1,1
+524,Research Design in Developmental Psychology,A,4,1,1
+533,Cognitive Development in Children,C,4,1,1
+534,Social and Emotional Development in Children,C,4,1,1
+538,Origins of Human Nature,C,4,1,1
+540,Cognitive Neuroscience,B,4,1,1
+544,Psychophysiology,B,4,1,1
+545,Neuropsychology,B,4,1,1
+547,Functional Neuroanatomy,B,4,1,1
+551,Decision Neuroscience,B,4,1,1
+555,Introduction to Functional Magnetic Resonance Imaging,B,4,1,1
+575,Multivariate Analysis of Behavioral Data,A,4,1,1
+576,Psycholinguistics,B,4,1,1
+577,Analysis of Covariance Structures,A,4,1,1
+578,Workshop in Quantitative Methods,A,4,1,1
+586,Advanced Psycholinguistics,B,4,1,1
+595,Practicum in clinical psychology,C,4,1,1
+612,Seminar in Advanced Social Psychology,C,4,1,1
+616,Research Techniques for Non-Experimental Social Sciences,A,4,1,1
+619,Psychological Intervention,C,4,1,1
+621,Seminar in Quantitative Psychology,A,4,1,1
+622,Decision Analysis and Behavioural Decision Theory,A,4,1,1
+625,Advanced Big Data Methods,A,4,1,1
+626,Computational Social Sciences,C,4,1,1
+660,Seminar in Clinical Psychology,C,4,1,1
+676,Seminar in Psycholinguistics,B,4,1,1
+680,Seminar in Psychopathology,C,4,1,1
+695,Advanced Practicum in Clinical Psychology,C,4,1,1
+593,Practicum in Teaching Psychology,D,2,1,1
+594a,Master's Thesis,D,0,0,1
+594b,Master's Thesis,D,0,0,1
+594z,Master's Thesis,D,0,0,1
+691a,Internship in Clinical Psychology,D,0,0,1
+691b,internship in Clinical Psychology,D,0,0,1
+794a,Doctoral Dissertation,D,2,0,1
+794b,Doctoral Dissertation,D,2,0,1
+794c,Doctoral Dissertation,D,2,0,1
+794d,Doctoral Dissertation,D,2,0,1
+794z,Doctoral Dissertation,D,0,0,1
+GRSC-800a,Studies for the Qualifying Examination,D,0,0,0
+GRSC-800z,Studies for the Qualifying Examination,D,0,0,0
+DSO123,Algo,D,5,0,0
+DSO545,n,D,3,1,0
+LING576,ling,D,3,1,0

@@ -1,4 +1,5 @@
 import csv
+from csv import DictWriter
 file_name = '../static/assets/courses.csv'
 def read_from_csv(file_name):
     course_names, course_numbers, check_dict = [],[],{}
@@ -23,7 +24,7 @@ def read_student_info(file_name, check_dict):
         _,result['name'] = csv_reader[0]
         _,result['image_link'] = csv_reader[1]
         _,result['usc_id'] = csv_reader[2]
-        _,result['program'] = csv_reader[3]
+        _, result['major'] = csv_reader[3]
         result['years'] = csv_reader[4][1:]
         
         if result['years']==['']:
@@ -33,22 +34,21 @@ def read_student_info(file_name, check_dict):
             number_of_years = len(result['years'])
         for each_year in range(5,4*(number_of_years+1),4):
             result[csv_reader[each_year][0]]={'fall':[check_dict[x] for x in csv_reader[each_year+1][1:]],'spring':[check_dict[x] for x in csv_reader[each_year+2][1:]],'summer':[check_dict[x] for x in csv_reader[each_year+3][1:]]}
-
+        
         return result
-
 def save_student_info(file_name, student_info):
     s_vals = student_info
     text_to_save = "name,"+s_vals['name']+"\n"
     text_to_save += "image_link,"+s_vals['image_link']+"\n"
     text_to_save += "usc_id,"+s_vals['usc_id']+"\n"
-    text_to_save += "program,"+s_vals['program']+"\n"
+    text_to_save += "major,"+s_vals['major']+"\n"
+
     if s_vals['years']:
         text_to_save += "years,"+",".join(s_vals['years']) + "\n"
         n = len(s_vals['years'])
     else:
         text_to_save += "years,"
         n = 0
-    print('[YOOO]',n,s_vals['years'])
     for i in range(n):
         text_to_save += s_vals["years"][i]+ '\n'
         
@@ -70,3 +70,9 @@ def save_student_info(file_name, student_info):
     f = open(file_name,'w')
     f.write(text_to_save)
     f.close()
+
+def save_new_course(course):
+    print(course)
+    with open('./static/assets/courses.csv', 'a+', newline='\n') as write_obj:
+        dict_writer = DictWriter(write_obj, fieldnames=list(course.keys()))
+        dict_writer.writerow(course)
