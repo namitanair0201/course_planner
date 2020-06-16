@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+</head>
+<body>
+    <h1>All Students</h1>
+    {% if message %}
+        <div class="alert alert-success" role="alert">{{message}}</div>
+    {% endif %}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+    {% endif %}
+    <table class = "table table-sm table-hover table-bordered">
+        <thead class = "thead-light">
+            <tr>
+                <th scope="col">USC ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Program</th>
+            </tr>
+        </thead>
+
+        {% for student_info in students_info %}
+            <tr scope = "row">
+                <td><a href={{student_info['usc_id']}}>{{student_info['usc_id']}}</a></td>
+                <td>{{student_info['name']}}</td>
+                <td>{{student_info['major']}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+        <form class="form" method="POST">
+
+            <h5>Add new student:</h5>
+
+            <input type="text" name="name" placeholder="Enter Name" required>
+
+            <input type="text" name="image_link" placeholder="(Optional) Image link">
+
+            <input type="number" name="year_of_joining" placeholder="Enter Year Of Joining" required>
+
+            <input type="number" name="usc_id" placeholder="Enter USC ID" required>
+
+            <input list="major_names" autocomplete="off" type="text" name="major" placeholder="Select Major" required>
+                <datalist id="major_names">
+                    <option value="Brain Cognitive Sciences">
+                    <option value="Developmental Psychology">
+                    <option value="Social Psychology">
+                    <option value="Quantitative Psychology">
+                </datalist>
+
+            <button class="btnSuccess" type="submit" name="new_student">Submit</button>
+        </form>
+
+</body>
+<!-- bootstrap script tags-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</html>
