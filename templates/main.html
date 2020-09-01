@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Main</title>
-
+    <script src="https://kit.fontawesome.com/24ecbe8bd3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     
@@ -24,16 +24,23 @@
                 <th scope="col">USC ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Program</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
 
-        {% for student_info in students_info %}
-            <tr scope = "row">
-                <td><a href={{student_info['usc_id']}}>{{student_info['usc_id']}}</a></td>
-                <td>{{student_info['name']}}</td>
-                <td>{{student_info['major']}}</td>
-            </tr>
-        {% endfor %}
+        <form class="form" method="POST">
+            {% for student_info in students_info %}
+                <tr scope = "row">
+                    <td><a href={{student_info['usc_id']}}>{{student_info['usc_id']}}</a></td>
+                    <td>{{student_info['name']}}</td>
+                    <td>{{student_info['major']}}</td>
+                    <td><button style="width:90%" class=" remove" type="submit" name="remove"
+                        value="{{student_info['usc_id']}}"><i
+                            class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </form>
     </table>
         <form class="form" method="POST">
 
@@ -43,7 +50,12 @@
 
             <input type="text" name="image_link" placeholder="(Optional) Image link">
 
-            <input type="number" name="year_of_joining" placeholder="Enter Year Of Joining" required>
+            <input list="year_of_joining" type="text" name="year_of_joining" placeholder="Enter Year Of Joining" required>
+            <datalist id="year_of_joining">
+                {% for year in ["2010-2011", "2011-2012", "2012-2013", "2013-2014", "2014-2015", "2015-2016", "2016-2017", "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030"]%}
+                    <option value="{{year}}">
+                {% endfor %}
+            </datalist>
 
             <input type="number" name="usc_id" placeholder="Enter USC ID" required>
 

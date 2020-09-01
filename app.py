@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from helpers.readcsv import read_from_csv, read_student_info, save_student_info, save_new_course
 from helpers.score import bcs,quantp,dp,socialp,getCourseList,score
 import glob
+import os
 
 app = Flask(__name__)
 
@@ -31,6 +32,11 @@ def Main():
             save_student_info(student_data_path+str(student_info['usc_id'])+'.csv', student_info)
             message = 'New user added successfully'
     
+    elif 'remove' in form_submitted:
+        os.remove(student_data_path+form_submitted['remove']+".csv")
+        message = 'User with USC ID: '+form_submitted['remove']+' removed successfully'
+
+
     students_paths = glob.glob(student_data_path+'*.csv')
     students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
     
