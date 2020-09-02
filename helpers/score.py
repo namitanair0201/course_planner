@@ -97,26 +97,30 @@ def socialp(courses_taken):
             res['area_requirements'] = ["PSYC 616 Required"]
     else:
         if '616' not in c_numbers:
-            res['area_requirements'] = ["PSYC 616 Required." + str(2-no_catA) + " Category A Courses Required"]
+            res['area_requirements'] = ["PSYC 616 Required"]
+            if 2-no_catA > 0:
+                res['area_requirements'].append( str(2-no_catA) + " Category A Courses Required")
+            else:
+                res['area_requirements'].append("Category A Requirements Met")
         else:
-            res['area_requirements'] = [str(3-no_catA) + " Category A Courses Required. PSYC616 Requirement met."]
+            res['area_requirements'] = [str(3-no_catA) + " Category A Courses Required"]
+            res['area_requirements'].append( "PSYC 616 Requirement met")
+   
     if no_catB >= 1:
         res['area_requirements'].append("Category B Requirements Met")
     else:
         res['area_requirements'].append("1 Category B Course Required")
     count=0
-    for c in cc_numbers:
-        if c[0]=='6':
-            count+=1       
+    count = cc_numbers.count('612')
     if count>=3:
         if '512' in c_numbers:
             res['area_requirements'].append("Category C Requirements Met")
         else:
-            res['area_requirements'].append("512 Course Required")
+            res['area_requirements'].append("PSYC 512 Course Required")
     else:
         if '512' not in c_numbers:
-            res['area_requirements'].append("512 Course Required")
-        res['area_requirements'].append("600 level courses needed [3]")
+            res['area_requirements'].append("PSYC 512 Course Required")
+        res['area_requirements'].append("PSYC 612 courses required [3]")
 
     res['A'] = 8 - catA if catA < 8 else 0
     res['B'] = 4-catB if catB <4 else 0  
