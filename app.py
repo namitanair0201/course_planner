@@ -76,7 +76,7 @@ def Hello_world(usc_id):
         
         course_dict = {"c_number":form_submitted['c_number'],"c_name":form_submitted['c_name'],"c_category":"D","c_credits":form_submitted['c_credits'],"subs":form_submitted['subs'],"psych":form_submitted['psych']}
 
-        if form_submitted['c_number'] not in check_dict and form_submitted['c_name'] not in check_dict:
+        if form_submitted['c_number'] not in check_dict:
             save_new_course(course_dict)
             message = 'Successfully added a new course '+str(form_submitted['c_number'])
         else:
@@ -85,6 +85,8 @@ def Hello_world(usc_id):
         new_year = form_submitted['year']
         if not student_info['years']:
             student_info['years'] = [new_year]
+            #student_info[new_year]={'fall':[],'spring':[],'summer':[]}
+
         if new_year not in student_info['years']:
             student_info['years'].append(new_year)
             student_info[new_year]={'fall':[],'spring':[],'summer':[]}

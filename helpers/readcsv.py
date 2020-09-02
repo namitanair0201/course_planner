@@ -72,7 +72,6 @@ def save_student_info(file_name, student_info):
     f.close()
 
 def save_new_course(course):
-    print(course)
     with open('./static/assets/courses.csv', 'a+', newline='\n') as write_obj:
         dict_writer = DictWriter(write_obj, fieldnames=list(course.keys()))
         dict_writer.writerow(course)
