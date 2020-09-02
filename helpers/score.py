@@ -96,8 +96,10 @@ def socialp(courses_taken):
         else:
             res['area_requirements'] = ["PSYC 616 Required"]
     else:
-        res['area_requirements'] = [str(3-no_catA) + " Category A Courses Required"]
-
+        if '616' not in c_numbers:
+            res['area_requirements'] = ["PSYC 616 Required." + str(2-no_catA) + " Category A Courses Required"]
+        else:
+            res['area_requirements'] = [str(3-no_catA) + " Category A Courses Required. PSYC616 Requirement met."]
     if no_catB >= 1:
         res['area_requirements'].append("Category B Requirements Met")
     else:
