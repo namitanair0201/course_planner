@@ -120,7 +120,7 @@ def socialp(courses_taken):
     else:
         if '512' not in c_numbers:
             res['area_requirements'].append("PSYC 512 Course Required")
-        res['area_requirements'].append("PSYC 612 courses required [3]")
+        res['area_requirements'].append(str(3-count)+" PSYC 612 courses required")
 
     res['A'] = 8 - catA if catA < 8 else 0
     res['B'] = 4-catB if catB <4 else 0  
