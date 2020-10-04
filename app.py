@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from helpers.readcsv import read_from_csv, read_student_info, save_student_info, save_new_course
+from helpers.readcsv import read_from_csv, read_student_info, save_student_info, save_new_course, read_notes, save_notes
 from helpers.score import bcs,quantp,dp,socialp,getCourseList,score
 import glob
 import os
@@ -31,9 +31,15 @@ def Main():
         else:
             save_student_info(student_data_path+str(student_info['usc_id'])+'.csv', student_info)
             message = 'New user added successfully'
-    
+        
+            notes_path = 'static/assets/notes/'+str(student_info['usc_id'])+'.json'
+            notes = {'general':''}
+            notes[form_submitted['year_of_joining']] = {'fall':{},'spring':{},'summer':{}}
+            save_notes(notes_path,notes)
+
     elif 'remove' in form_submitted:
         os.remove(student_data_path+form_submitted['remove']+".csv")
+        os.remove('static/assets/notes/'+form_submitted['remove']+".json")
         message = 'User with USC ID: '+form_submitted['remove']+' removed successfully'
 
 
@@ -42,11 +48,25 @@ def Main():
     
     return render_template('main.html', students_info=students_info, message=message, error = error)
 
+
+@app.route('/courses', methods=['GET','POST'])
+def Courses():
+    course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
+
+    #form_submitted = request.form
+    message,error = '',''
+    #students_paths = glob.glob(student_data_path+'*.csv')
+    #students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
+    
+    return render_template('courses.html', db=db, message=message, error = error)
+
+
 @app.route('/<int:usc_id>', methods=['GET','POST'])
 def Hello_world(usc_id):
 
     course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
-
+    notes_path = 'static/assets/notes/'+str(usc_id)+'.json'
+    notes = read_notes(notes_path)
     error,message,removed = '','',''
     form_submitted = request.form
 
@@ -61,9 +81,15 @@ def Hello_world(usc_id):
         if (('c_number' in form_submitted) and (form_submitted['c_number'] in check_dict)):
             student_info[year][term].append(check_dict[form_submitted['c_number']])
             message = 'Successfully added course '+str(form_submitted['c_number'])
+            # notes[year][term][form_submitted['c_number']]=''
+            # save_notes(notes_path,notes)
+
         elif 'c_name' in form_submitted and form_submitted['c_name'] in check_dict:
             student_info[year][term].append(check_dict[form_submitted['c_name']])
             message = 'Successfully added course '+str(form_submitted['c_number'])
+            # notes[year][term][form_submitted['c_number']]=''
+            # save_notes(notes_path,notes)
+
         else:
             error = 'Course name/number does not exist in DB'
     
@@ -83,6 +109,9 @@ def Hello_world(usc_id):
             error = 'Course already exists '+form_submitted['c_number']
 
         new_year = form_submitted['year']
+        notes[new_year]={'fall':{},'spring':{},'summer':{}}
+        save_notes(notes_path,notes)
+
         if not student_info['years']:
             student_info['years'] = [new_year]
             #student_info[new_year]={'fall':[],'spring':[],'summer':[]}
@@ -103,6 +132,9 @@ def Hello_world(usc_id):
             student_info.pop(year)
             message = 'Successfully removed '+year
 
+            del notes[year]
+            save_notes(notes_path,notes)
+
     elif 'remove' in form_submitted:
         text = form_submitted['remove'].split()
         term = text[3]
@@ -111,6 +143,10 @@ def Hello_world(usc_id):
         for course_taken in student_info[year][term]:
             if course_taken['c_number'] == c_number:
                 student_info[year][term].remove(course_taken)
+                if course_taken['c_number'] in notes[year][term]:
+                    del notes[year][term][course_taken['c_number']]
+                save_notes(notes_path,notes)
+
         removed = 'Successfully removed '+str(c_number)
     elif 'year' in form_submitted:
         new_year = form_submitted['new_year']
@@ -121,6 +157,9 @@ def Hello_world(usc_id):
             student_info['years'].append(new_year)
             student_info[new_year]={'fall':[],'spring':[],'summer':[]}
             message = 'Successfully added '+new_year
+
+            notes[new_year]={'fall':{},'spring':{},'summer':{}}
+            save_notes(notes_path,notes)
         else:
             error = 'Selected year already exists'
     
@@ -129,13 +168,30 @@ def Hello_world(usc_id):
         message = 'Successfully selected ' + major
         student_info['major'] = major
 
+    elif 'save_notes' in form_submitted:
+        general = form_submitted['general_notes']
+        notes['general'] = general
+        save_notes(notes_path,notes)
+    
+    elif 'save_course_note' in form_submitted:
+        year = form_submitted['notes_modal_year']
+        term = form_submitted['notes_modal_term']
+        c_num = form_submitted['notes_modal_c_num']
+        text = form_submitted['notes_modal_text']
+        if year not in notes:
+            notes[year] = {'fall':{},'spring':{},'summer':{}}
+        notes[year][term][c_num] = text
+        save_notes(notes_path,notes)
+    
     if student_info['years']:
         student_info['years'].sort()
     
+    student_info['notes'] = notes
+
     save_student_info(student_data_path+str(usc_id)+'.csv', student_info)
     
     res = score(student_info)
-
+    
     return render_template('index.html', student_info=student_info, res=res, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
 if __name__ == '__main__':

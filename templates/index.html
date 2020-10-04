@@ -17,6 +17,9 @@
     <a href="/">
         <button type="button" class="btn btn-secondary">All Students</button>
     </a>
+    <a href="/courses">
+        <button type="button" class="btn btn-secondary">Courses Database</button>
+    </a>
     <button style="float: right;" type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
 
     <!-- <div>
@@ -183,20 +186,32 @@
                 <form method="POST">
 
                     {% for course_taken in student_info[each_year][term] %}
-                    <tr>
-                        {% if course_taken['psych']=='1' %}
-                            <td>PSYC{{course_taken['c_number']}}</td>
-                        {% else %}
-                            <td> {{ course_taken['c_number'] }} </td>
-                        {% endif %}
-                        <td>{{course_taken['c_name']}}</td>
-                        <td>{{course_taken['c_credits']}}</td>
-                        <td>{{course_taken['c_category']}}</td>
-                        <td><button style="width:90%" class=" remove" type="submit" name="remove"
-                                value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
-                                    class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
+                    <!-- <button > -->
+                        {% set c_num = course_taken['c_number'] %}
+                        {% set notes_text = student_info['notes'][each_year][term][c_num] %}
+                        <div class="tooltip">
+                            <tr {% if (c_num in student_info['notes'][each_year][term]) and notes_text|length > 0  %} style="background-color:#a5e9fa" {% endif %} 
+                                data-toggle="modal"
+                                data-target="#notesModal"
+                                onclick="setTermCourse('{{each_year}}','{{term}}','{{c_num}}','{{notes_text}}');"
+                                >
+                                {% if course_taken['psych']=='1' %}
+                                    <td>PSYC{{course_taken['c_number']}}</td>
+                                {% else %}
+                                    <td> {{ course_taken['c_number'] }} </td>
+                                {% endif %}
+                                <td>{{course_taken['c_name']}}</td>
+                                <td>{{course_taken['c_credits']}}</td>
+                                <td>{{course_taken['c_category']}}</td>
+                                <td><button style="width:90%" class=" remove" type="submit" name="remove"
+                                        value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
+                                            class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <span class="tooltiptext">{{notes_text}}</span>
+                        </div>
+                        
+                    <!-- </button> -->
                     {% endfor %}
                 </form>
 
@@ -316,6 +331,34 @@
       </div>
     </div>
 
+
+    <div id = "notesModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Notes</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+                <form method = "POST">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                          <input type="text" id = "notes_modal_text" class="form-control" name = "notes_modal_text" placeholder="Enter Notes">
+                          <input hidden type="text" id = "notes_modal_year" class="form-control" name = "notes_modal_year">
+                          <input hidden type="text" id = "notes_modal_term" class="form-control" name = "notes_modal_term">
+                          <input hidden type="text" id = "notes_modal_c_num" class="form-control" name = "notes_modal_c_num">
+                        </div>
+                      </div>
+                    <input required type="submit" name = "save_course_note" id = "save_note" class="btn btn-primary" value = "Save Note">
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <form method="POST">
         <input list="new_year" type="text" name="new_year" autocomplete="off" placeholder="Enter year" is required>
         <input class="btn btn-primary" type="submit" name="year" value="Add a year">
@@ -326,6 +369,30 @@
         </datalist>
     </form>
 
+    <br>
+    <form method="POST">
+        <textarea name = "general_notes" placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea>
+        <button type = "submit" id = "notes_submit" class = "btn btn-primary" name = "save_notes">Save</button>
+    </form>
+
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover({
+                placement: 'top',
+                trigger: 'hover'
+            });
+        });
+        function setTermCourse(year,term,c_number,notes_text){
+            document.getElementById('notes_modal_text').value = notes_text;
+            document.getElementById('notes_modal_year').value = year;
+            document.getElementById('notes_modal_term').value = term;
+            document.getElementById('notes_modal_c_num').value = c_number;
+
+            if (notes_text != ''){
+                
+            }
+        }
+    </script>
     <!-- bootstrap script tags-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">

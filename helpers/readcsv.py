@@ -1,6 +1,17 @@
 import csv
 from csv import DictWriter
 file_name = '../static/assets/courses.csv'
+import json
+
+def read_notes(filename):
+    with open(filename) as f:
+        data = json.load(f)
+    return data
+
+def save_notes(filename,data):
+    with open(filename, 'w') as json_file:
+        json.dump(data, json_file)
+    
 def read_from_csv(file_name):
     course_names, course_numbers, check_dict = [],[],{}
 
@@ -37,6 +48,7 @@ def read_student_info(file_name, check_dict):
         
         return result
 def save_student_info(file_name, student_info):
+    print(student_info)
     s_vals = student_info
     text_to_save = "name,"+s_vals['name']+"\n"
     text_to_save += "image_link,"+s_vals['image_link']+"\n"
@@ -70,6 +82,7 @@ def save_student_info(file_name, student_info):
     f = open(file_name,'w')
     f.write(text_to_save)
     f.close()
+
 
 def save_new_course(course):
     with open('./static/assets/courses.csv', 'a+', newline='\n') as write_obj:
