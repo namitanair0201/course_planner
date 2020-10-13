@@ -3,3 +3,6 @@ cp/
 .vscode/
 __pycache__/
 assets/
+cp_new/
+students/*
+notes/*

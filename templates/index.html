@@ -39,126 +39,127 @@
         {% endif %}
     </div>
 
-        <form class="form" method="POST">
+    <form class="form" method="POST">
 
-            <label for="major">Change major: </label>
+        <label for="major">Change major: </label>
 
-            <input list="major_names" size = "25" autocomplete="off" type="text" name="major" placeholder="{{student_info['major']}}">
-                <datalist id="major_names">
-                    <option value="Brain Cognitive Sciences">
-                    <option value="Developmental Psychology">
-                    <option value="Social Psychology">
-                    <option value="Quantitative Psychology">
-                </datalist>
+        <input list="major_names" size="25" autocomplete="off" type="text" name="major"
+            placeholder="{{student_info['major']}}">
+        <datalist id="major_names">
+            <option value="Brain Cognitive Sciences">
+            <option value="Developmental Psychology">
+            <option value="Social Psychology">
+            <option value="Quantitative Psychology">
+        </datalist>
 
-            <button class="btnSuccess" type="submit" name="major">Submit</button>
-        </form>
-        <br/>
+        <button class="btnSuccess" type="submit" name="major">Submit</button>
+    </form>
+    <br />
 
-        <button data-toggle="modal" data-target="#myModal" class = "btnSuccess">
-            <i class="far fa-star"></i>Add new Course
-        </button>
+    <button data-toggle="modal" data-target="#myModal" class="btnSuccess">
+        <i class="far fa-star"></i>Add new Course
+    </button>
 
-        <div>
-            {% if res %}
-            <h3 class="sem">Statistics</h3>
-            <table class="table table-sm table-hover">
-                <thead>
-                    <th>
-                        Area Requirements
-                    </th>
-                    <th>
-                        Program Requirements
-                    </th>
-                    <th>
-                        Values
-                    </th>
-                </thead>
+    <div>
+        {% if res %}
+        <h3 class="sem">Statistics</h3>
+        <table class="table table-sm table-hover">
+            <thead>
+                <th>
+                    Area Requirements
+                </th>
+                <th>
+                    Program Requirements
+                </th>
+                <th>
+                    Values
+                </th>
+            </thead>
 
-                <tbody>
-                    <tr>
-                        <td rowspan="8">
-                            {% for item in res['area_requirements']%}
-                                {{item}}
-                                <br>
-                            {% endfor %}
-                        </td>
-                        <td>
-                            A category [8 min]
-                        </td>
-                        <td>
-                            {{res['A']}} credits left
-                        </td>
-                    </tr>
+            <tbody>
+                <tr>
+                    <td rowspan="8">
+                        {% for item in res['area_requirements']%}
+                        {{item}}
+                        <br>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        A category [8 min]
+                    </td>
+                    <td>
+                        {{res['A']}} credits left
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>
-                            B category [4 min]
-                        </td>
-                        <td>
-                            {{res['B']}} credits left
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            C category [4 min]
-                        </td>
-                        <td>
-                            {{res['C']}} credits left
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            BC category [16 min]
-                        </td>
-                        <td>
-                            {{res['BC']}} credits left
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            PSYC credits [24 min]
-                        </td>
-                        <td>
-                            {{res['psyc']}} credits left
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Substantive units [36 min]
-                        </td>
-                        <td>
-                            {{res['subs']}} credits left
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            PhD units [60 min]
-                        </td>
-                        <td>
-                            {{res['phd']}} credits left
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            {% endif %}
-        </div>
-    
+                <tr>
+                    <td>
+                        B category [4 min]
+                    </td>
+                    <td>
+                        {{res['B']}} credits left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        C category [4 min]
+                    </td>
+                    <td>
+                        {{res['C']}} credits left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        BC category [16 min]
+                    </td>
+                    <td>
+                        {{res['BC']}} credits left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        PSYC credits [24 min]
+                    </td>
+                    <td>
+                        {{res['psyc']}} credits left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Substantive units [36 min]
+                    </td>
+                    <td>
+                        {{res['subs']}} credits left
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        PhD units [60 min]
+                    </td>
+                    <td>
+                        {{res['phd']}} credits left
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
 
+      
     {% if student_info['years'] %}
     {% for each_year in student_info['years'] %}
-    
+
     <div class="box">
         <div class="yearHeading">
             <form method="POST">
 
                 <span class="year">Year {{each_year}}</span>
-                <button class= "remove" type="submit" name="remove_year" value=" Remove  {{each_year}} ">
+                <button class="remove" type="submit" name="remove_year" value=" Remove  {{each_year}} ">
                     <i class="fas fa-trash"></i>
                 </button>
             </form>
         </div>
-        <br/>
+        <br />
         {% for each_sem in range(3) %}
         {% if each_sem == 0 %}
         <p class="sem">Fall</p>
@@ -187,30 +188,28 @@
 
                     {% for course_taken in student_info[each_year][term] %}
                     <!-- <button > -->
-                        {% set c_num = course_taken['c_number'] %}
-                        {% set notes_text = student_info['notes'][each_year][term][c_num] %}
-                        <div class="tooltip">
-                            <tr {% if (c_num in student_info['notes'][each_year][term]) and notes_text|length > 0  %} style="background-color:#a5e9fa" {% endif %} 
-                                data-toggle="modal"
-                                data-target="#notesModal"
-                                onclick="setTermCourse('{{each_year}}','{{term}}','{{c_num}}','{{notes_text}}');"
-                                >
-                                {% if course_taken['psych']=='1' %}
-                                    <td>PSYC{{course_taken['c_number']}}</td>
-                                {% else %}
-                                    <td> {{ course_taken['c_number'] }} </td>
-                                {% endif %}
-                                <td>{{course_taken['c_name']}}</td>
-                                <td>{{course_taken['c_credits']}}</td>
-                                <td>{{course_taken['c_category']}}</td>
-                                <td><button style="width:90%" class=" remove" type="submit" name="remove"
-                                        value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <span class="tooltiptext">{{notes_text}}</span>
-                        </div>
-                        
+                    {% set c_num = course_taken['c_number'] %}
+                    {% set notes_text = student_info['notes'][each_year][term][c_num] %}
+                    <tr {% if (c_num in student_info['notes'][each_year][term]) and notes_text|length > 0  %}
+                        class = "notespresent" {% endif %} data-toggle="modal" data-target="#notesModal"
+                        onclick="setTermCourse('{{each_year}}','{{term}}','{{c_num}}','{{notes_text}}');">
+
+                        {% if course_taken['psych']=='1' %}
+                        <td>PSYC{{course_taken['c_number']}}</td>
+                        {% else %}
+                        <td> {{ course_taken['c_number'] }} </td>
+                        {% endif %}
+                        <td {% if notes_text %} class="tooltipsss" {% endif %}>
+                            {{course_taken['c_name']}}
+                            <span class="tooltiptextsss">{{notes_text}}</span>
+                        </td>
+                        <td>{{course_taken['c_credits']}}</td>
+                        <td>{{course_taken['c_category']}}</td>
+                        <td><button style="width:90%" class=" remove" type="submit" name="remove"
+                                value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
+                                    class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
                     <!-- </button> -->
                     {% endfor %}
                 </form>
@@ -222,16 +221,16 @@
                                 placeholder="--">
                             <datalist id="c_number">
                                 {% for course_number in course_numbers%}
-                                    <option value={{course_number}}>
-                                {% endfor %}
+                                <option value={{course_number}}>
+                                    {% endfor %}
                             </datalist>
                         </td>
                         <td>
                             <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="select">
                             <datalist id="c_name">
                                 {% for course_name in course_names%}
-                                    <option value="{{course_name}}">
-                                {% endfor %}
+                                <option value="{{course_name}}">
+                                    {% endfor %}
                             </datalist>
                         </td>
                         <td><input class="form-control-plaintext" style="width: 100%;" type="text" name="c_credits"
@@ -252,111 +251,118 @@
     {% endfor %}
     <!--for each year-->
     {% endif %}
+    
 
-
-    <div id = "myModal" class="modal" tabindex="-1" role="dialog">
+    <div id="myModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Add Custom Course</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Custom Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-            <div class="modal-body">
-                <form method = "POST">
-                    <div class="form-group row">
-                        <label for="year" class="col-sm-2 col-form-label">Year</label>
-                        <div class="col-sm-10">
-                          <input list="new_year" required type="text" class="form-control" name = "year" placeholder="Enter year">
+                <div class="modal-body">
+                    <form method="POST">
+                        <div class="form-group row">
+                            <label for="year" class="col-sm-2 col-form-label">Year</label>
+                            <div class="col-sm-10">
+                                <input list="new_year" required type="text" class="form-control" name="year"
+                                    placeholder="Enter year">
+                            </div>
                         </div>
-                      </div>
-                
-                    <div class="form-group row">
-                        <label for="c_term" class="col-sm-2 col-form-label">Term</label>
-                        <div class="col-sm-10">
-                            <select required placeholder="-select-" name="c_term" class="form-control">
-                                <option >fall</option>
-                                <option>spring</option>
-                                <option>summer</option>
-                            </select>
+
+                        <div class="form-group row">
+                            <label for="c_term" class="col-sm-2 col-form-label">Term</label>
+                            <div class="col-sm-10">
+                                <select required placeholder="-select-" name="c_term" class="form-control">
+                                    <option>fall</option>
+                                    <option>spring</option>
+                                    <option>summer</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                
-                    <div class="form-group row">
-                        <label for="c_number" class="col-sm-2 col-form-label">Course Prefix</label>
-                        <div class="col-sm-10">
-                            <input required name = "c_number" type = "text" class="form-control" placeholder="Prefix">
+
+                        <div class="form-group row">
+                            <label for="c_number" class="col-sm-2 col-form-label">Course Prefix</label>
+                            <div class="col-sm-10">
+                                <input required name="c_number" type="text" class="form-control" placeholder="Prefix">
+                            </div>
                         </div>
-                    </div>
-                
-                    <div class="form-group row">
-                        <label for="c_name" class="col-sm-2 col-form-label">Course Name</label>
-                        <div class="col-sm-10">
-                            <input required type="text" name = "c_name" class="form-control" placeholder="Name">
+
+                        <div class="form-group row">
+                            <label for="c_name" class="col-sm-2 col-form-label">Course Name</label>
+                            <div class="col-sm-10">
+                                <input required type="text" name="c_name" class="form-control" placeholder="Name">
+                            </div>
                         </div>
-                    </div>
-                
-                    <div class="form-group row">
-                        <label for="c_credits" class="col-sm-2 col-form-label">Course Credits</label>
-                        <div class="col-sm-10">
-                            <input required type="text" name = "c_credits" class="form-control" placeholder="Credits">
+
+                        <div class="form-group row">
+                            <label for="c_credits" class="col-sm-2 col-form-label">Course Credits</label>
+                            <div class="col-sm-10">
+                                <input required type="text" name="c_credits" class="form-control" placeholder="Credits">
+                            </div>
                         </div>
-                    </div>
-                
-                    <div class="form-group row">
-                        <label for="subs" class="col-sm-2 col-form-label">Substantive/ Non-Substantive</label>
-                        <div class="col-sm-10">
-                            <select required placeholder = "Substantive" name = "subs" class="form-control">
-                                <option value="1">Substantive</option>
-                                <option value="0">Non-substantive</option>
-                            </select>
+
+                        <div class="form-group row">
+                            <label for="subs" class="col-sm-2 col-form-label">Substantive/ Non-Substantive</label>
+                            <div class="col-sm-10">
+                                <select required placeholder="Substantive" name="subs" class="form-control">
+                                    <option value="1">Substantive</option>
+                                    <option value="0">Non-substantive</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="psyc" class="col-sm-2 col-form-label">PSYC/NON-PSYC</label>
-                        <div class="col-sm-10">
-                            <select required name = "psych" class="form-control">
-                                <option value="1" >PSYC</option>
-                                <option value="0">Non-PSYC</option>
-                            </select>
+                        <div class="form-group row">
+                            <label for="psyc" class="col-sm-2 col-form-label">PSYC/NON-PSYC</label>
+                            <div class="col-sm-10">
+                                <select required name="psych" class="form-control">
+                                    <option value="1">PSYC</option>
+                                    <option value="0">Non-PSYC</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                
-                    <input required type="submit" name = "custom_course" id = "custom_course" class="btn btn-primary" value = "Add course">
-                </form>
+
+                        <input required type="submit" name="custom_course" id="custom_course" class="btn btn-primary"
+                            value="Add course">
+                    </form>
+                </div>
             </div>
         </div>
-      </div>
     </div>
 
 
-    <div id = "notesModal" class="modal" tabindex="-1" role="dialog">
+    <div id="notesModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Notes</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-            <div class="modal-body">
-                <form method = "POST">
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                          <input type="text" id = "notes_modal_text" class="form-control" name = "notes_modal_text" placeholder="Enter Notes">
-                          <input hidden type="text" id = "notes_modal_year" class="form-control" name = "notes_modal_year">
-                          <input hidden type="text" id = "notes_modal_term" class="form-control" name = "notes_modal_term">
-                          <input hidden type="text" id = "notes_modal_c_num" class="form-control" name = "notes_modal_c_num">
+                <div class="modal-body">
+                    <form method="POST">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <input type="text" id="notes_modal_text" class="form-control" name="notes_modal_text"
+                                    placeholder="Enter Notes">
+                                <input hidden type="text" id="notes_modal_year" class="form-control"
+                                    name="notes_modal_year">
+                                <input hidden type="text" id="notes_modal_term" class="form-control"
+                                    name="notes_modal_term">
+                                <input hidden type="text" id="notes_modal_c_num" class="form-control"
+                                    name="notes_modal_c_num">
+                            </div>
                         </div>
-                      </div>
-                    <input required type="submit" name = "save_course_note" id = "save_note" class="btn btn-primary" value = "Save Note">
-                </form>
+                        <input required type="submit" name="save_course_note" id="save_note" class="btn btn-primary"
+                            value="Save Note">
+                    </form>
+                </div>
             </div>
         </div>
-      </div>
     </div>
 
     <form method="POST">
@@ -364,33 +370,36 @@
         <input class="btn btn-primary" type="submit" name="year" value="Add a year">
         <datalist id="new_year">
             {% for year in ["2010-2011", "2011-2012", "2012-2013", "2013-2014", "2014-2015", "2015-2016", "2016-2017", "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030"]%}
-                <option value="{{year}}">
-            {% endfor %}
+            <option value="{{year}}">
+                {% endfor %}
         </datalist>
     </form>
 
     <br>
     <form method="POST">
-        <textarea name = "general_notes" placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea>
-        <button type = "submit" id = "notes_submit" class = "btn btn-primary" name = "save_notes">Save</button>
+        <textarea name="general_notes"
+            rows="10" cols="50"
+            placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea>
+        <button type="submit" id="notes_submit" class="btn btn-primary" name="save_notes">Save</button>
     </form>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('[data-toggle="popover"]').popover({
                 placement: 'top',
                 trigger: 'hover'
             });
         });
-        function setTermCourse(year,term,c_number,notes_text){
+
+        function setTermCourse(year, term, c_number, notes_text) {
             document.getElementById('notes_modal_text').value = notes_text;
             document.getElementById('notes_modal_year').value = year;
             document.getElementById('notes_modal_term').value = term;
             document.getElementById('notes_modal_c_num').value = c_number;
 
-            if (notes_text != ''){
-                
-            }
+            // if (notes_text != '') {
+
+            // }
         }
     </script>
     <!-- bootstrap script tags-->
