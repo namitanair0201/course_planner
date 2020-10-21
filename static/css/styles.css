@@ -105,3 +105,14 @@ td{
   .notespresent {
         background-image: linear-gradient(to right, rgba(255,0,0,0), rgb(255, 203, 203));
   }
+
+  .remove_course{
+    clear: both;
+    border: 0px;
+    padding: 0;
+  }
+
+  .message{
+      color: #825F77;
+      font-size: smaller;
+  }

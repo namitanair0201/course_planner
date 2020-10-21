@@ -207,7 +207,7 @@
                         <td>{{course_taken['c_category']}}</td>
                         <td><button style="width:90%" class=" remove" type="submit" name="remove"
                                 value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
-                                    class="fas fa-trash"></i></button>
+                                    class="fas fa-trash" onclick="event.stopPropagation();"></i></button>
                         </td>
                     </tr>
                     <!-- </button> -->
@@ -283,7 +283,7 @@
                                 </select>
                             </div>
                         </div>
-
+                        <span class='message'>Don't enter "PSYC" prefix for PSYC course</span>
                         <div class="form-group row">
                             <label for="c_number" class="col-sm-2 col-form-label">Course Prefix</label>
                             <div class="col-sm-10">

@@ -48,7 +48,6 @@ def read_student_info(file_name, check_dict):
         
         return result
 def save_student_info(file_name, student_info):
-    print(student_info)
     s_vals = student_info
     text_to_save = "name,"+s_vals['name']+"\n"
     text_to_save += "image_link,"+s_vals['image_link']+"\n"
@@ -88,3 +87,12 @@ def save_new_course(course):
     with open('./static/assets/courses.csv', 'a+', newline='\n') as write_obj:
         dict_writer = DictWriter(write_obj, fieldnames=list(course.keys()))
         dict_writer.writerow(course)
+
+def delete_a_course(db):    
+    with open('./static/assets/courses.csv','w') as fp:
+        fp.write('c_number,c_name,c_category,c_credits,subs,psych\n')
+
+    with open('./static/assets/courses.csv', 'a+', newline='\n') as write_obj:
+        for c in db:
+            dict_writer = DictWriter(write_obj, fieldnames=list(c.keys()))
+            dict_writer.writerow(c)

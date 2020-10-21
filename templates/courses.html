@@ -30,6 +30,7 @@
                 <th scope="col">c_credits</th>
                 <th scope="col">subs</th>
                 <th scope="col">psych</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
 
@@ -40,9 +41,21 @@
                     <td>{{course['c_name']}}</td>
                     <td>{{course['c_category']}}</td>
                     <td>{{course['c_credits']}}</td>
-                    <td>{{course['subs']}}</td>
-                    <td>{{course['psych']}}</td>
-                    
+                    {% if course['subs']=='1' %}
+                        <td>✓</td>
+                    {% else %}
+                        <td>✗</td>
+                    {% endif %}
+                    {% if course['psych'] == '1' %}
+                        <td>✓</td>
+                    {% else %}
+                        <td>✗</td>
+                    {% endif %}
+                    <td>
+                        <button class="remove_course" type="submit" name="remove_course" value=" Remove {{course['c_number']}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
                 </tr>
             {% endfor %}
         </form>

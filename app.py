@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from helpers.readcsv import read_from_csv, read_student_info, save_student_info, save_new_course, read_notes, save_notes
+from helpers.readcsv import read_from_csv, read_student_info, save_student_info, save_new_course, read_notes, save_notes, delete_a_course
 from helpers.score import bcs,quantp,dp,socialp,getCourseList,score
 import glob
 import os
@@ -53,11 +53,28 @@ def Main():
 def Courses():
     course_names, course_numbers, check_dict, db  = read_from_csv('static/assets/courses.csv')
 
-    #form_submitted = request.form
+    form_submitted = request.form
     message,error = '',''
     #students_paths = glob.glob(student_data_path+'*.csv')
     #students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
-    
+    if 'remove_course' in form_submitted:
+        course_number = form_submitted['remove_course'].split()[-1]
+        filtered = list(filter(lambda x: x['c_number']!=course_number, db))
+        
+        check_dict = {}
+        for course in filtered:
+            check_dict[course['c_number']]=course
+            check_dict[course['c_name']]=course
+
+        try:
+            students_paths = glob.glob(student_data_path+'*.csv')
+            students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
+            delete_a_course(filtered)
+            message = 'Successfully removed '+course_number
+            db = filtered
+        except:
+            error = course_number+' is taken by one or more student(s)'
+
     return render_template('courses.html', db=db, message=message, error = error)
 
 
