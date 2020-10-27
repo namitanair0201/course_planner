@@ -149,6 +149,13 @@
         {% endif %}
     </div>
 
+    <form method="POST">
+        <textarea name="general_notes"
+            rows="5" cols="120"
+            placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea>
+        <button type="submit" id="notes_submit" class="btn btn-primary" name="save_notes">Save</button>
+    </form>
+
       
     {% if student_info['years'] %}
     {% for each_year in student_info['years'] %}
@@ -380,13 +387,6 @@
     </form>
 
     <br>
-    <form method="POST">
-        <textarea name="general_notes"
-            rows="10" cols="50"
-            placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea>
-        <button type="submit" id="notes_submit" class="btn btn-primary" name="save_notes">Save</button>
-    </form>
-
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({
