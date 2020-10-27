@@ -77,6 +77,10 @@ def Courses():
 
     return render_template('courses.html', db=db, message=message, error = error)
 
+@app.route('/petitions/<int:ref_number>', methods=['GET','POST'])
+def petitions(ref_number):
+    return render_template('petitions.html', ref_number = ref_number)
+
 
 @app.route('/<int:usc_id>', methods=['GET','POST'])
 def Hello_world(usc_id):
@@ -209,7 +213,7 @@ def Hello_world(usc_id):
     
     res = score(student_info)
     
-    return render_template('index.html', student_info=student_info, res=res, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
+    return render_template('index.html', usc_id = usc_id, student_info=student_info, res=res, course_names=course_names, course_numbers=course_numbers, message=message, removed=removed,error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
