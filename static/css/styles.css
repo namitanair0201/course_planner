@@ -1,5 +1,5 @@
 * {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
 }
 
@@ -17,20 +17,23 @@ table {
 }
 
 .thead {
-    margin: 5px;
-    background-color: #825F77;
-
-}
-
-.thead th {
-    font-size: 16px;
+    background-color: 	#fbbec8;
+    font-size: 15px;
     color: #F9FAFC;
-    font-family: Helvetica, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
+
+/* .thead td {
+    font-size: 15px;
+    color: #F9FAFC;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+} */
 
 tbody tr {
     background-color: #F9FAFC;
-    font-family: Helvetica, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    
 }
 
 .sem {
@@ -38,8 +41,8 @@ tbody tr {
     margin: 0px;
     border-width: 0px;
     text-align: center;
-    font: bold 22px Helvetica, sans-serif;
-    color: #1A535C;
+    font: bold 22px Georgia, 'Times New Roman', Times, serif;
+    color: #da8db3;
 }
 
 button.remove {
@@ -54,7 +57,7 @@ div.box {
     border: dotted 0.025em rgb(172, 164, 169);
     width: 50%;
     float: left;
-    padding: 10px;
+    padding: 5px;
 }
 
 .year{
@@ -62,7 +65,7 @@ div.box {
     text-transform: uppercase;
     font-size: 25px;
     font-weight: bolder;
-    color:  purple;
+    color:  rgb(128, 0, 60);
 }
 
 .btnSuccess{
@@ -80,7 +83,7 @@ td{
 
 .tooltipsss {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
     border-bottom: 1px dotted black;
   }
   
