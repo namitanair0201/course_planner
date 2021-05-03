@@ -12,7 +12,7 @@ def bcs(courses_taken):
     phd = sum(list(map(int,courses_taken['c_credits'].values)))
     res['area_requirements']= []
     if '621' in c_numbers:
-        res['area_requirements'] = "All Requirements Met" #all satisfied
+        res['area_requirements'] = ["All Requirements Met"] #all satisfied
     else:
         if not all(c in c_numbers for c in ['500','501']):
             res['area_requirements'] = ["PSYC 500/501"]
