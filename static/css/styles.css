@@ -45,6 +45,11 @@ tbody tr {
     color: #da8db3;
 }
 
+tr.years-row {
+    border-bottom: solid #825F77;
+    border-top: solid #825F77;
+}
+
 button.remove {
     color: #464646;
     background-color: inherit;
@@ -55,8 +60,6 @@ button.remove {
 
 div.box {
     border: dotted 0.025em rgb(172, 164, 169);
-    width: 50%;
-    float: left;
     padding: 5px;
 }
 

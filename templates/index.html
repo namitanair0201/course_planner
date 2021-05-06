@@ -9,26 +9,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" media="print" href="{{ url_for('static', filename='css/print.css') }}" />
 
     <title>Course Planner</title>
 </head>
 
 <body class="container-fluid">
-    <a href="/">
-        <button type="button" class="btn btn-secondary">All Students</button>
-    </a>
-    <a href="/courses">
-        <button type="button" class="btn btn-secondary">All Courses</button>
-    </a>
-    <a href="/petitions/{{usc_id}}">
-        <button type="button" class="btn btn-secondary">Petitioned Courses</button>
-    </a>
+    <div class="no-print">
+        <a href="/">
+            <button type="button" class="btn btn-secondary">All Students</button>
+        </a>
+        <a href="/courses">
+            <button type="button" class="btn btn-secondary">All Courses</button>
+        </a>
+        <a href="/petitions/{{usc_id}}">
+            <button type="button" class="btn btn-secondary">Petitioned Courses</button>
+        </a>
+    
 
     <button style="float: right;" type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
-
+</div>
     <div>
         <h2 class="mainheading"> Course Planner for {{student_info['name']}} </h2>
         <hr> <br>
+        <div class = "no-print">
         {% if message %}
         <div class="alert alert-success" role="alert">{{message}}</div>
         {% endif %}
@@ -39,10 +43,11 @@
         <div class="alert alert-danger" role="alert">{{error}}</div>
         {% endif %}
     </div>
+</div>
 
     <form class="form" method="POST">
 
-        <label for="major">Change major: </label>
+        <label class = "no-print" for="major">Change major: </label>
 
         <input list="major_names" size="25" autocomplete="off" type="text" name="major"
             placeholder="{{student_info['major']}}">
@@ -53,12 +58,12 @@
             <option value="Quantitative Psychology">
         </datalist>
 
-        <button class="btnSuccess" type="submit" name="major">Submit</button>
+        <button  class="btnSuccess no-print" type="submit" name="major">Submit</button>
     </form>
     <br />
 
     <button data-toggle="modal" data-target="#myModal" class="btnSuccess">
-        <i class="far fa-star"></i>Add new Course
+        <i class="far fa-star no-print"></i>Add new Course
     </button>
 
     <div>
@@ -147,115 +152,125 @@
     </div>
 
     <form method="POST">
-        <textarea name="general_notes"
-            rows="5" cols="120"
+        <textarea name="general_notes" rows="5" cols="120"
             placeholder="Enter your notes here">{{ student_info['notes']['general'] }}</textarea><br>
-        <button type="submit" id="notes_submit" class="btn btn-secondary" name="save_notes">Save</button>
+        <button type="submit" id="notes_submit" class="btn btn-secondary no-print" name="save_notes">Save</button>
     </form>
 
-      
-    {% if student_info['years'] %}
-    {% for each_year in student_info['years'] %}
+    <table>
 
-    <div class="box">
-        <div class="yearHeading">
-            <form method="POST">
+        {% if student_info['years'] %}
+        {% for each_year in student_info['years'] %}
+        {% if loop.cycle('odd','even') == 'odd' %}
+        <tr class="years-row">
+            {% endif %}
+            <td>
+                <div class="box">
+                    <div class="yearHeading">
+                        <form method="POST">
 
-                <span class="year">Year {{each_year}}</span>
-                <button class="remove" type="submit" name="remove_year" value=" Remove  {{each_year}} ">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </form>
-        </div>
-        <table class="table table-sm">
-            <tr class="thead">
-                <td style="width: 20%;">Prefix</th>
-                <td style="width: 50%;">Course name</th>
-                <td style="width: 10%;">Credits</th>
-                <td style="width: 10%;">Cat</th>
-                <td style="width: 10%;">Action</th>
-            </tr>
-        </table>
-        <br />
-        {% for each_sem in range(3) %}
-        {% if each_sem == 0 %}
-        <p class="sem">Fall</p>
-        {% set term = 'fall' %}
-        {% elif each_sem == 1 %}
-        <p class="sem">Spring</p>
-        {% set term = 'spring' %}
-        {% else %}
-        <p class="sem">Summer</p>
-        {% set term = 'summer' %}
-        {% endif %}
-        <table class="table table-sm table-hover">
-                <form method="POST">
+                            <span class="year">Year {{each_year}}</span>
+                            <button class="remove" type="submit" name="remove_year" value=" Remove  {{each_year}} ">
+                                <i class="fas fa-trash no-print"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <table class="table table-sm">
+                        <tr class="thead">
+                            <td style="width: 20%;">Prefix</th>
+                            <td style="width: 50%;">Course name</th>
+                            <td style="width: 10%;">Credits</th>
+                            <td style="width: 10%;">Cat</th>
+                            <td class= "no-print" style="width: 10%;">Action</th>
+                        </tr>
+                    </table>
+                    <br />
+                    {% for each_sem in range(3) %}
+                    {% if each_sem == 0 %}
+                    <p class="sem">Fall</p>
+                    {% set term = 'fall' %}
+                    {% elif each_sem == 1 %}
+                    <p class="sem">Spring</p>
+                    {% set term = 'spring' %}
+                    {% else %}
+                    <p class="sem">Summer</p>
+                    {% set term = 'summer' %}
+                    {% endif %}
+                    <table class="table table-sm table-hover">
+                        <form method="POST">
 
-                    {% for course_taken in student_info[each_year][term] %}
-                    <!-- <button > -->
-                    {% set c_num = course_taken['c_number'] %}
-                    {% set notes_text = student_info['notes'][each_year][term][c_num] %}
-                    <tr {% if (c_num in student_info['notes'][each_year][term]) and notes_text|length > 0  %}
-                        class = "notespresent" {% endif %} data-toggle="modal" data-target="#notesModal"
-                        onclick="setTermCourse('{{each_year}}','{{term}}','{{c_num}}','{{notes_text}}');">
+                            {% for course_taken in student_info[each_year][term] %}
+                            <!-- <button > -->
+                            {% set c_num = course_taken['c_number'] %}
+                            {% set notes_text = student_info['notes'][each_year][term][c_num] %}
+                            <tr {% if (c_num in student_info['notes'][each_year][term]) and notes_text|length> 0 %}
+                                class = "notespresent" {% endif %} data-toggle="modal" data-target="#notesModal"
+                                onclick="setTermCourse('{{each_year}}','{{term}}','{{c_num}}','{{notes_text}}');">
 
-                        {% if course_taken['psych']=='1' %}
-                        <td style="width: 20%;">PSYC{{course_taken['c_number']}}</td>
-                        {% else %}
-                        <td style="width: 20%;"> {{ course_taken['c_number'] }} </td>
-                        {% endif %}
-                        <td style="width: 60%;"{% if notes_text %} class="tooltipsss" {% endif %}>
-                            {{course_taken['c_name']}}
-                            <span class="tooltiptextsss">{{notes_text}}</span>
-                        </td>
-                        <td style="width: 5%;">{{course_taken['c_credits']}}</td>
-                        <td style="width: 8%;">{{course_taken['c_category']}}</td>
-                        <td style="width: 7%;"><button style="width:90%" class=" remove" type="submit" name="remove"
-                                value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
-                                    class="fas fa-trash" onclick="event.stopPropagation();"></i></button>
-                        </td>
-                    </tr>
-                    <!-- </button> -->
+                                {% if course_taken['psych']=='1' %}
+                                <td style="width: 20%;">PSYC{{course_taken['c_number']}}</td>
+                                {% else %}
+                                <td style="width: 20%;"> {{ course_taken['c_number'] }} </td>
+                                {% endif %}
+                                <td style="width: 60%;" {% if notes_text %} class="tooltipsss" {% endif %}>
+                                    {{course_taken['c_name']}}
+                                    <span class="tooltiptextsss">{{notes_text}}</span>
+                                </td>
+                                <td style="width: 5%;">{{course_taken['c_credits']}}</td>
+                                <td style="width: 8%;">{{course_taken['c_category']}}</td>
+                                <td class= "no-print" style="width: 7%;"><button style="width:90%" class=" remove" type="submit"
+                                        name="remove"
+                                        value="Remove {{course_taken['c_number']}} for {{term}} in {{each_year}}"><i
+                                            class="fas fa-trash" onclick="event.stopPropagation();"></i></button>
+                                </td>
+                            </tr>
+                            <!-- </button> -->
+                            {% endfor %}
+                        </form>
+
+                        <tr class="no-print">
+                            <form method="POST">
+                                <td>
+                                    <input style="width: 100%;" list="c_number" autocomplete="off" type="text"
+                                        name="c_number" placeholder="--">
+                                    <datalist id="c_number">
+                                        {% for course_number in course_numbers%}
+                                        <option value={{course_number}}>
+                                            {% endfor %}
+                                    </datalist>
+                                </td>
+                                <td>
+                                    <input list="c_name" autocomplete="off" type="text" name="c_name"
+                                        placeholder="select">
+                                    <datalist id="c_name">
+                                        {% for course_name in course_names%}
+                                        <option value="{{course_name}}">
+                                            {% endfor %}
+                                    </datalist>
+                                </td>
+                                <td><input class="form-control-plaintext" style="width: 100%;" type="text"
+                                        name="c_credits" autocomplete="off" placeholder=""></td>
+                                <td><input class="form-control-plaintext" style="width: 100%;" type="text"
+                                        name="c_category" autocomplete="off" placeholder=""></td>
+                                <td>
+                                    <button style="width: 45%;" class="btnSuccess" type="submit" name="add_course"
+                                        value="Add to {{term}} in {{each_year}}"><i class="fas fa-plus"></i></button>
+                                </td>
+                            </form>
+                        </tr>
+                    </table>
                     {% endfor %}
-                </form>
-
-                <tr>
-                    <form method="POST">
-                        <td>
-                            <input style="width: 100%;" list="c_number" autocomplete="off" type="text" name="c_number"
-                                placeholder="--">
-                            <datalist id="c_number">
-                                {% for course_number in course_numbers%}
-                                <option value={{course_number}}>
-                                    {% endfor %}
-                            </datalist>
-                        </td>
-                        <td>
-                            <input list="c_name" autocomplete="off" type="text" name="c_name" placeholder="select">
-                            <datalist id="c_name">
-                                {% for course_name in course_names%}
-                                <option value="{{course_name}}">
-                                    {% endfor %}
-                            </datalist>
-                        </td>
-                        <td><input class="form-control-plaintext" style="width: 100%;" type="text" name="c_credits"
-                                autocomplete="off" placeholder=""></td>
-                        <td><input class="form-control-plaintext" style="width: 100%;" type="text" name="c_category"
-                                autocomplete="off" placeholder=""></td>
-                        <td>
-                            <button style="width: 45%;" class="btnSuccess" type="submit" name="add_course"
-                                value="Add to {{term}} in {{each_year}}"><i class="fas fa-plus"></i></button>
-                        </td>
-                    </form>
-                </tr>
-        </table>
+                    <!--for each semester-->
+                </div>
+            </td>
+            {% if loop.cycle('odd','even') == 'even' %}
+        </tr>
+        {% endif %}
         {% endfor %}
-        <!--for each semester-->
-    </div>
-    {% endfor %}
-    <!--for each year-->
-    {% endif %}
-    
+        <!--for each year-->
+        {% endif %}
+
+    </table>
 
     <div id="myModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -369,11 +384,13 @@
         </div>
     </div>
 
-    <form method="POST">
+    <form class = "no-print" method="POST">
         <input list="new_year" type="text" name="new_year" autocomplete="off" placeholder="Enter year" is required>
         <input class="btn btn-primary" type="submit" name="year" value="Add a year">
         <datalist id="new_year">
-            {% for year in ["2010-2011", "2011-2012", "2012-2013", "2013-2014", "2014-2015", "2015-2016", "2016-2017", "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030"]%}
+            {% for year in ["2010-2011", "2011-2012", "2012-2013", "2013-2014", "2014-2015", "2015-2016", "2016-2017",
+            "2017-2018", "2018-2019", "2019-2020", "2020-2021", "2021-2022", "2022-2023", "2023-2024", "2024-2025",
+            "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030"]%}
             <option value="{{year}}">
                 {% endfor %}
         </datalist>
@@ -402,13 +419,13 @@
     <!-- bootstrap script tags-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-    </script>
+        </script>
 
 </body>
 
