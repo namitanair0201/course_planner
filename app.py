@@ -19,12 +19,9 @@ def Main():
     if 'new_student' in form_submitted:
         student_info = {}
 
-        student_info['name'], student_info['image_link'], student_info['usc_id'], student_info['major'], student_info['years'] = form_submitted['name'], form_submitted['image_link'], form_submitted['usc_id'], form_submitted['major'], [form_submitted['year_of_joining']]
-        
+        student_info['name'], student_info['usc_id'], student_info['major'], student_info['years'] = form_submitted['name'], form_submitted['usc_id'], form_submitted['major'], [form_submitted['year_of_joining']]
+        student_info['image_link']=""
         student_info[form_submitted['year_of_joining']] = {'fall':[],'spring':[],'summer':[]}
-
-        if student_info['image_link']=='':
-            student_info['image_link'] = 'https://media3.giphy.com/media/bhJqCi6LVaDPG/giphy.gif'
 
         if student_info['usc_id'] in [x['usc_id'] for x in students_info]:
             error = 'USC id matches to an existing users'
@@ -44,7 +41,7 @@ def Main():
 
 
     students_paths = glob.glob(student_data_path+'*.csv')
-    students_info = [read_student_info(student_path,check_dict) for student_path in students_paths]
+    students_info = sorted([read_student_info(student_path,check_dict) for student_path in students_paths], key = lambda x: x["name"])
     
     return render_template('main.html', students_info=students_info, message=message, error = error)
 
