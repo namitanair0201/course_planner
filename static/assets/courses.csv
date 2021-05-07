@@ -1,10 +1,13 @@
 c_number,c_name,c_category,c_credits,subs,psych
+412,Current Topics In Social Psychology,C,4,1,1
+450,Neural Network Models of Social and Cognitive Processes,D,4,1,1
 500,An Overview of Quantitative Methods in Psychology,A,4,1,1
 501,Statistics in Psychological Research,A,4,1,1
 502,Analysis of Variance and Experimental Design,A,4,1,1
 503,Regression and the General Linear Model,A,4,1,1
 504,Research Design,A,4,1,1
 506,Learning and Cognition,B,4,1,1
+508,Historical Foundations of Psychology,B,4,1,1
 510,Visual Cognition,B,4,1,1
 512,Seminar in Social Psychology,C,4,1,1
 514,Psychopathology,C,4,1,1
@@ -74,6 +77,67 @@ GRSC-800z,Studies for the Qualifying Examination,D,0,0,0
 790-10, Directed Research, D, 10,0,1
 790-11, Directed Research, D, 11,0,1
 790-12, Directed Research, D, 12,0,1
-334,NewCourse,D,5,1,1
-523,Al,D,2,1,1
-test,test,D,3,1,0
+597-1,Internship for Curricular Practical Training,D,1,0,1
+599-4,Special Topics,D,4,1,1
+599-2,Special Topics,D,2,1,1
+599A-4,Special Topics, A, 4,1,1
+599B-4,Special Topics,B,4,1,1
+599C-4,Special Topics, C, 4,1,1
+GRSC596,Internship for Curricular Practical Training,D,1,0,0
+GRSC800,Studies for the Qualifying Examination,D,0,0,0
+ISE562,Decision Analysis,D,3,1,0
+MATH505,Applied Probability,D,3,1,0
+PPD587,Risk Analysis,D,4,1,0
+LING576,Psycholinguistics,B,3,1,0
+LING579,Child Language Development,D,3,1,0
+LING586,Advanced Psycholinguistics,B,3,1,0
+LING530,Generative Syntax,D,3,1,0
+POIR613,Topics in Quantitative Analysis,D,4,1,0
+GSBA625,Designing and Running Experiments,D,3,1,0
+EDU599,Special Topics,D,3,1,0
+EDU731,Economics of Organizational Change and Learning Environments,D,3,1,0
+EDUC658,Hierarchical Linear Models,C,4,0,0
+PPDE668,Applied Econometrics for Program Evaluation,D,4,0,0
+MOR601,Seminar in Organizational Behavior,D,3,0,0
+MKT699,Special Topics,D,3,1,0
+PM542,Social Network Analysis,D,4,1,0
+INTD500,Ethics and Accountability in Biomedical Research,D,1,1,0
+COMM554,Regression and Multivariate Communication Research,D,4,1,0
+COMM602,Seminar in Persuasion,D,0,1,0
+DSO545,Statistical Computing and Data Visualization,D,3,0,0
+GSBA611,Seminar in Research Methodology,D,3,1,0
+SWMS554,Women in Global Perspective,D,4,0,0
+ECON608,Advanced Neuroeconomics,D,4,0,0
+PM502,Foundations of Public Health,D,4,0,0
+PM512,Principles of Epidemiology,D,4,0,0
+PM504,Quality in Health Care,D,4,0,0
+PPD503,Economics for Public Policy,D,4,0,0
+PM508,Health Service Delivery in the U.S.,D,4,0,0
+PM547,Public Health Policy and Politics,D,4,0,0
+PM507,Public Health Services Research Methods,D,4,0,0
+LING585,Computational Linguistics,D,3,0,0
+SSCI581,Concepts for Spatial Thinking,D,4,0,0
+PM599,Special Topics,D,4,0,0
+SSCI683,Principles of Spatial Data Analysis,D,4,0,0
+NIIN540,Neuroimaging Data Processing Methods,D,3,0,0
+NIIN530,Neuroimaging Data Acquisition w/ Magnetic Resonance Imaging,D,3,0,0
+NIIN550,Computational Modeling in Neuroimaging,D,3,0,0
+NIIN520,Experimental Design for Neuroimaging,D,3,0,0
+EDUC630,Organizations and Policy: Current Issues,D,4,0,0
+421L,Data Analysis for Psychological Research,D,4,0,1
+SOCI642,Sex and Gender in Society,D,4,0,0
+CSCI534,Affective Computing,D,4,0,0
+PHIL562,Philosophy of the Mind,D,4,0,0
+
+
+
+
+
+
+
+
+GERO,Research Training Grant Proposal Development in Gerontology,D,4,1,0
+BISC521,Hearing and Communication Neuroscience,D,4,1,0
+GERO508,The Mind and Body Connection through the Lifespan,D,4,1,0
+BISC407,Cellular and Molecular Neuroscience,D,4,1,0
+NIIN580,Introduction to Data Science in Neuroimaging,D,3,1,0
